@@ -18,20 +18,19 @@ var routes = require('./routes.js');
  * 
  */
 
+
 var sessionStore = new RedisStore({
   host:'127.0.0.1',
   port:6379,
   db : 1
 });
 
-app.use(cors());
 
 //server site
-app.use(express.static(__dirname + '/../app'));
+app.use(express.static(__dirname + '/../client/'));
 
-console.log(__dirname + '../app');
 // //serve images
-// app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/../images/'));
 
 
 app.use(session({
@@ -41,7 +40,7 @@ app.use(session({
   saveUninitialized: false
 }))
 
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
@@ -54,7 +53,7 @@ app.use(function(req, res, next){
 var initServer = function() {
   // attaches all the routes to the server
   routes.setup(app);
-  
+
   var port = process.env.PORT || 3001;
   var server = app.listen(port);
   console.log("Express server listening on %d in %s mode", port, app.settings.env)

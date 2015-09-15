@@ -1,0 +1,10 @@
+register
+<div>{{error}}</div>
+<form ng-submit='register()'>
+  <p><input type="text" name="login" ng-model='data.user' placeholder="Username or Email"></p>
+  <p><input type="password" name="password" ng-model='data.password' placeholder="Password"></p>
+  <p class="submit"><input type="submit" name="commit" value="submit"></p>
+</form>
+
+<input type="submit" ng-click='goToLogin()' value='go to login page'>
+

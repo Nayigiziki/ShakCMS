@@ -1,3 +1,5 @@
+var authentication = require('./controllers/authentication');
+
 
 var setup = function(app) {
 
@@ -17,9 +19,13 @@ var setup = function(app) {
     // });
   });
 
-  // app.post('/register', authentication.signup);
-  // app.post('/login' , authentication.login);
-
+  app.post('/register', authentication.signup);
+  app.post('/login' , authentication.login);
+  app.get('/logout', authentication.logout);
+  app.get('/isAuth', authentication.checkUser);
+  app.get('/test', function(req, res){
+    console.log('request session : ', req.session);
+  })
   //default image response
   app.get('*', function(req, res) {
     res.send('what?');
