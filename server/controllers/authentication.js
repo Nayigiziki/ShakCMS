@@ -36,7 +36,6 @@ var userDne  = function(user, cb){
 }
 
 module.exports = {
-
   login: function (req, res, next) {
     var user = req.body;
     console.log('login');
@@ -59,7 +58,6 @@ module.exports = {
       }
     })
   },
-
   signup: function (req, res, next) {
     var user = req.body;
     console.log('signup');
@@ -82,14 +80,16 @@ module.exports = {
       }
     });
 
-  }
-  ,
-
+  },
   checkUser: function(req, res, next) {
     var isLoggedIn = !!req.session.email;
-    res.send(isLoggedIn);
+    if(isLoggedIn){
+      res.status(200).json({status: 'Logged in'});
+    } else {
+      res.status(200).json({status: 'not logged in'});
+    }
+    
   },
-
   isAuth: function (req, res, next) {
     console.log('request session ' , req.session);
     if (req.session.email) {
@@ -98,15 +98,10 @@ module.exports = {
       res.status(401).json({error: 'Not allowed'});
     }
   },
-
   logout: function(req, res, next) {
     req.session.email = null;
     res.status(200).json({status: 'Logout successful'});
   }
-
-
-
-
 };
 
 

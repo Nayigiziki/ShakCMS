@@ -1,13 +1,13 @@
 var myApp = angular.module('shakApp', 
   [
-    'ui.router',
-    'shakApp.login',
-    'shakApp.register',
-    'shakApp.dashboard',
-    'shakApp.addProject'
+  'ui.router',
+  'shakApp.login',
+  'shakApp.register',
+  'shakApp.dashboard',
+  'shakApp.addProject'
   ])
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/login');
+
 
   $stateProvider
   .state('login', {
@@ -33,7 +33,7 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('Server', function($http){
-  var baseUrl = 'http://127.0.0.1:3001/';
+  var baseUrl = 'http://127.0.0.1:3001/api/';
   var post = function(url, data){
     return $http.post(baseUrl + url, data)
     .then(function(response) {
@@ -67,18 +67,18 @@ var myApp = angular.module('shakApp',
   }
 })
 .factory('Auth', function($http, $state){
-  var baseUrl = 'http://127.0.0.1:3001/isAuth';
+  var baseUrl = 'http://127.0.0.1:3001/api/isAuth';
   var isAuth = function(){
     return $http.get(baseUrl)
     .then(function(response) {
         // this callback will be called asynchronously
         // when the response is available
-        if(!response.data) {
-          $state.go('login');
-        };
+
+        return response;
       }, function(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
+
         return response;
       });
   }
@@ -88,3 +88,15 @@ var myApp = angular.module('shakApp',
   }
 
 })
+.run(function(Auth, $state, $rootScope){
+  Auth.isAuth()
+  .then(function(response){
+    console.log(response);
+    if(response.data.status === 'not logged in') {
+      $state.go('login');
+    } else {
+      $state.go('dashboard');
+    }
+  })
+});
+
