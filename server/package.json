@@ -4,7 +4,7 @@
   "description": "Shak's Content Management site",
   "main": "index.js",
   "scripts": {
-    "test": "mocha testing-suite/authenticationSpecs.js"
+    "test": "mocha testing-suite/addProjectControllerSpecs.js "
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "ioredis": "^1.8.0",
     "mocha": "^2.3.2",
     "morgan": "^1.6.1",
+    "node-stringify": "0.0.18",
     "superagent": "^1.4.0",
     "ui-router": "0.0.1"
   },

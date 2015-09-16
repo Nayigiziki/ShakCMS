@@ -1,5 +1,7 @@
 angular.module('shakApp.addProject', [])
   .controller('addProjectController', function($scope, Server, $state){
+    //"ProjectName-Discipline-Date"
+
     var data = {};
 
     $scope.createProject = function(){
