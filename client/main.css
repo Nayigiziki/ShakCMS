@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  font-size: 36px;
+  z-index:4;
+  height: 100;
+  align-items: center;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.container .item {
+  color : black;
+  text-decoration: none;
+}
+
+.container .item:hover {
+  color : black;
+  text-decoration: underline;
+}
+
+.containerWork {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.containerWork .itemWork {
+  color : black;
+  text-decoration: none;
+  font-size: 53px;
+}
+
+.containerWork .itemWork:hover {
+  color : black;
+  text-decoration: underline;
+}
+
+hr {
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+@font-face {
+  font-family: 'Superspitze Grotesk';
+  src: url('./font/SuperspitzeGrotesk-SemiBold.eot'); /* IE9 Compat Modes */
+  src: url('./font/SuperspitzeGrotesk-SemiBold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./font/SuperspitzeGrotesk-SemiBold.woff') format('woff'), /* Modern Browsers */
+       url('./font/SuperspitzeGrotesk-SemiBold.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('./font/SuperspitzeGrotesk-SemiBold.svg#e00e7a6d2841f025d96010a5cd455804') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  700;
+}
+
+body {
+    font-family: 'Superspitze Grotesk';
+    margin : 0px;
+}
+
+.workImg {
+  width : 545px;
+  height: 360px;
+  margin-bottom: 60px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.imgContainer {
+  display: flex;
+  margin-left: 30px;
+  margin-right: 30px;
+  flex-wrap: wrap;
+  justify-content : center;
+}
+
+.overLay {
+  background:#fff;
+  position: absolute;
+  width: 405;
+  height: 270;
+  left: 100;
+  top: 45;
+  opacity: 0;
+  vertical-align: middle;
+  line-height: 250px;
+  font-family: 'Superspitze Grotesk';
+  font-size: 30px;
+
+}
+.overLayContainer:hover .overLay {
+  opacity: 0.9;
+    transition: opacity .5s cubic-bezier(0,1,1,.93);
+   -moz-transition: opacity .5s cubic-bezier(0,1,1,.93);
+   -webkit-transition: opacity .5s cubic-bezier(0,1,1,.93);
+}
+.overLayContainer {
+  position: relative;
+}
+
+

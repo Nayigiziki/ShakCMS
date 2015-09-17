@@ -3,7 +3,7 @@ request = require('superagent'),
 express = require('express'),
 Redis = require('ioredis'),
 images = require('../controllers/imagesFsController'),
-projectCtrl = require('../controllers/addProjectController'),
+projectCtrl = require('../controllers/dbController'),
 redis = new Redis(),
 stringify = require('node-stringify');
 
@@ -49,6 +49,7 @@ describe('Authentication', function() {
         title : 'ProjectShak',
         projectDetails: {
           client : 'joe',
+          discipline : 'identity',
           collaborators : 'joe',
           year : year,
           time : time,
@@ -62,6 +63,7 @@ describe('Authentication', function() {
         title : 'ProjectShak',
         projectDetails: {
           client : 'joe Daddy',
+          discipline : 'identity',
           collaborators : 'joe',
           year : year,
           time : time,
@@ -71,10 +73,12 @@ describe('Authentication', function() {
         }
       }
 
+      var category = 'projects';
+
     it('should add project details to the database', function (done) {
       var projectStr = JSON.stringify(project.projectDetails);
-      projectCtrl.saveProjectToDb(project);
-      projectCtrl.getProjectFromDb(project.title, function(projectDb){
+      projectCtrl.saveToDb(category, project);
+      projectCtrl.getFromDb(category, project.title, function(projectDb){
         if(!!projectDb){
           expect(projectDb).to.equal(projectStr);
           done();
@@ -89,9 +93,9 @@ describe('Authentication', function() {
     it('should overwrite existing projects', function (done) {
       var initialProject = JSON.stringify(project.projectDetails);
       var overwrittenProject = JSON.stringify(project2.projectDetails);
-      projectCtrl.saveProjectToDb(project);
-      projectCtrl.saveProjectToDb(project2);
-      projectCtrl.getProjectFromDb(project.title, function(projectDb){
+      projectCtrl.saveToDb(category, project);
+      projectCtrl.saveToDb(category, project2);
+      projectCtrl.getFromDb(category, project.title, function(projectDb){
         if(!!projectDb){
           expect(projectDb).to.equal(overwrittenProject);
           done();
@@ -106,12 +110,12 @@ describe('Authentication', function() {
     it('should delete project', function (done) {
       var projectStr = JSON.stringify(project.projectDetails);
       projectCtrl.deleleDb();
-      projectCtrl.saveProjectToDb(project);
-      projectCtrl.getProjectFromDb(project.title, function(projectDb){
+      projectCtrl.saveToDb(category, project);
+      projectCtrl.getFromDb(category, project.title, function(projectDb){
         if(!!projectDb){
           expect(projectDb).to.equal(projectStr);
-          projectCtrl.deleteProjectFromDb(project.title);
-          projectCtrl.getProjectFromDb(project.title, function(projectDb){
+          projectCtrl.deleteFromDb(category, project.title);
+          projectCtrl.getFromDb(category, project.title, function(projectDb){
             if(!!projectDb){
               expect(true).to.equal(false);
               done();

@@ -4,7 +4,9 @@ var myApp = angular.module('shakApp',
   'shakApp.login',
   'shakApp.register',
   'shakApp.dashboard',
-  'shakApp.addProject'
+  'shakApp.addProject',
+  'shakApp.work',
+  'shakApp.project'
   ])
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -30,6 +32,18 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/addProject.html',
     controller : 'addProjectController'
   })
+  .state('dashboard.work', {
+    url: '/work',
+    templateUrl: 'views/work.html',
+    controller : 'workController'
+  })
+  .state('work.project', {
+    url: '/work',
+    templateUrl: 'views/work.html',
+    controller : 'projectController'
+  })
+
+  
 
 })
 .factory('Server', function($http){
