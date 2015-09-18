@@ -27,24 +27,24 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/dashboard.html',
     controller : 'dashboardController'
   })
-  .state('dashboard.addProject', {
+  .state('addProject', {
+    parent: 'dashboard',
     url: '/addProject',
     templateUrl: 'views/addProject.html',
     controller : 'addProjectController'
   })
-  .state('dashboard.work', {
+  .state('work', {
+    parent: 'dashboard',
     url: '/work',
     templateUrl: 'views/work.html',
     controller : 'workController'
   })
-  .state('work.project', {
-    url: '/work',
-    templateUrl: 'views/work.html',
+  .state('project', {
+    parent: 'dashboard',
+    url: '/project',
+    templateUrl: 'views/project.html',
     controller : 'projectController'
   })
-
-  
-
 })
 .factory('Server', function($http){
   var baseUrl = 'http://127.0.0.1:3001/api/';
@@ -111,6 +111,8 @@ var myApp = angular.module('shakApp',
     } else {
       $state.go('dashboard');
     }
+  }).catch(function(err){
+    $state.go('login');
   })
 });
 

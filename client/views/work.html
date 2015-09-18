@@ -1,32 +1,15 @@
 <nav class='containerWork'>
-  <a class='itemWork' href="">all</a> 
-  <a class='itemWork'href="" ng-click='goToIdentity()'>identity</a> 
-  <a class='itemWork'href="">interactive</a>
-  <a class='itemWork'href="">print</a>
-  <a class='itemWork'href="">direction</a>
+  <a class='itemWork' href="" ng-click='show("all")'>all</a> 
+  <a class='itemWork'href="" ng-click='show("identity")'>identity</a> 
+  <a class='itemWork'href="" ng-click='show("interactive")'>interactive</a>
+  <a class='itemWork'href="" ng-click='show("print")'>print</a>
+  <a class='itemWork'href="" ng-click='show("direction")'>direction</a>
 </nav>
 
-<div class='imgContainer'>
-  <span class='overLayContainer'>
+<div class='imgContainer' ng-click='goToProj()'>
+  <span class='overLayContainer' >
     <img class='workImg' src="http://img.ffffound.com/static-data/assets/6/375a493518520c0db280a872f99e955e88854c98_m.jpg">
-    <span align='middle' class='overLay'>test</span>
-  </span>
-  <span class='overLayContainer'>
-    <img class='workImg' src="http://img.ffffound.com/static-data/assets/6/0de874ebf221e0143e606aa9b4a8a042be585e5b_m.jpg">
-    <span align='middle' class='overLay'>test</span>
-  </span>
-    <span class='overLayContainer'>
-    <img class='workImg' src="http://img.ffffound.com/static-data/assets/6/b4ad6a0f1882e582874c2163edf256d3fdbb29fb_m.jpg">
-    <span align='middle' class='overLay'>test</span>
-  </span>
-    <span class='overLayContainer'>
-    <img class='workImg' src="http://behance.vo.llnwd.net/profiles5/121324/projects/295824/1213241251748563.jpg">
-    <span align='middle' class='overLay'>test</span>
-  </span>
-    <span class='overLayContainer'>
-    <img class='workImg' src="http://img.ffffound.com/static-data/assets/6/7e6ca7f51df5aa7445218debcce59ccdfed3ea27_m.jpg">
     <span align='middle' class='overLay'>test</span>
   </span>
 </div>
 
-<div ui-view></div>

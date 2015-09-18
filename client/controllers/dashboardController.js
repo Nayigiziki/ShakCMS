@@ -1,12 +1,12 @@
 angular.module('shakApp.dashboard', [])
   .controller('dashboardController', function($scope, Server, $state, Auth){
-      Auth.isAuth()
-      .then(function(response){
-        console.log(response);
-        if(response.data.status === 'not logged in') {
-          $state.go('login');
-        }
-      })
+    Auth.isAuth()
+    .then(function(response){
+      console.log(response);
+      if(response.data.status === 'not logged in') {
+        $state.go('login');
+      }
+    })
 
     var data = {};
 
@@ -20,5 +20,5 @@ angular.module('shakApp.dashboard', [])
       })
     }
 
-    $state.go('dashboard.work');
+    $state.go('project');
   });

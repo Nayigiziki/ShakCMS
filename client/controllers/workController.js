@@ -23,9 +23,20 @@ angular.module('shakApp.work', [])
 
     }
 
-    $scope.goToIdentity = function(){
-      $state.go('dashboard.work.project')
+    $scope.show = function(discipline){
+      var obj = {
+        'all' : [],
+        'identity' : [],
+        'interactive' : [],
+        'print' : [],
+        'direction' : [],
+      }
+      //set obj[discipline value] to ngRepeat scope variable
     }
 
+    $scope.goToProj = function(){
+      console.log('dasdsa')
+      $state.go('project');
+    }
 
   });
