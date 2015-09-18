@@ -45,6 +45,16 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/project.html',
     controller : 'projectController'
   })
+  .state('about', {
+    parent: 'dashboard',
+    url: '/about',
+    templateUrl: 'views/about.html'
+  })
+  .state('contact', {
+    parent: 'dashboard',
+    url: '/contact',
+    templateUrl: 'views/contact.html'
+  })
 })
 .factory('Server', function($http){
   var baseUrl = 'http://127.0.0.1:3001/api/';
