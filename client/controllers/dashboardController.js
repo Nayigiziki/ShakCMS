@@ -20,5 +20,4 @@ angular.module('shakApp.dashboard', [])
       })
     }
 
-    $state.go('project');
   });
