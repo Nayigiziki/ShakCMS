@@ -17,6 +17,17 @@
   text-decoration: none;
 }
 
+.logoEdit {
+  height : 30px;
+}
+
+.header .item img {
+  height: 76.844px;
+}
+.header .item .logo {
+  height: 20px;
+}
+
 .pageContent {
   margin-top : 100px;
   z-index : 0;
@@ -122,6 +133,7 @@ body {
   display : flex;
   justify-content : center;
   align-items : center;
+  flex-direction : column;
 }
 
 .projectImg {
@@ -147,10 +159,9 @@ body {
   font-size: 18px;
   margin-left: 30px;
   margin-right :30px;
-  white-space: pre-wrap;
   word-wrap: break-word;
   overflow-x: hidden;
-  align-items : baseline;
+  align-items : flex-start;
   justify-content : center;
 
 }
@@ -159,6 +170,13 @@ body {
   word-wrap: break-word;
   overflow-x: hidden;
   width : 1200px;
+}
+
+.inputProjectDescriptionEdit {
+  width: 1200px;
+  font-family: 'Superspitze Grotesk';
+  height: 250px;
+  font-size: 18px;
 }
 
 .projectTitles {
@@ -254,3 +272,41 @@ body {
   width : 360px;
   margin-right: 40px;
 }
+
+.inputTitleEdit {
+  height: 99px;
+  font-size: 72px;
+  text-align: center;
+  width : 80%;
+  font-family: 'Superspitze Grotesk';
+}
+
+.submitContainer {
+  display: flex;
+  align-items : center;
+  justify-content: center;
+}
+
+.inputTitleEditBtn {
+  height: 99px;
+  font-size: 50px;
+  background-color: white;
+  font-family: 'Superspitze Grotesk';
+  color: black;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-align: center;
+}
+
+.inputTitleEditBtn:hover {
+  background: #CF4647;
+  cursor: pointer;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.inputTitleEditBtn:focus {
+  outline: none;
+}
+
+

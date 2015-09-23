@@ -6,7 +6,8 @@ var myApp = angular.module('shakApp',
   'shakApp.dashboard',
   'shakApp.addProject',
   'shakApp.work',
-  'shakApp.project'
+  'shakApp.project',
+  'shakApp.listProjects'
   ])
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -55,6 +56,13 @@ var myApp = angular.module('shakApp',
     url: '/contact',
     templateUrl: 'views/contact.html'
   })
+  .state('listProjects', {
+    parent: 'dashboard',
+    url: '/listProjects',
+    templateUrl: 'views/listProjects.html',
+    controller : 'listProjectsController'
+  })
+
 })
 .factory('Server', function($http){
   var baseUrl = 'http://127.0.0.1:3001/api/';

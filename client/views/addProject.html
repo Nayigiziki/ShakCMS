@@ -1,10 +1,76 @@
-<!-- <form>
-  <input type="file" multiple/>
-  <textarea ng-model='description' placeholder='desciption'></textarea> 
-  <input type="text" ng-model='title' placeholder='title'/>
-  <input type="text" ng-model='client' placeholder='client'/>
-  <input type="text" ng-model='collaborators' placeholder='collaborators'/>
-  <button type="submit" >Upload</button>
-</form> -->
+<div ng-init='editTitle = false' >
+  <div ng-show='!editTitle'class='projectTitleTextContainer' ng-click="editTitle = !editTitle">
+    {{data.projectTitle}}
+  </div>
+  <div ng-show='editTitle' class='projectTitleTextContainer'>
+    <input ng-model="data.projectTitle" class='inputTitleEdit' ng-dblClick="editTitle=false">
+  </div>
+</div>
+
+<div class='projectImgContainer'>
+  <img  class='projectImg' src="{{data.image}}">
+  <input my-upload type="file" name="upload"/>
+</div>
 
 
+<div class='projectDescriptionContainer'>
+  <div ng-init='editProjectDescription = false;' >
+    <div ng-show='!editProjectDescription' ng-click='editProjectDescription = !editProjectDescription' class='projectDescription'>{{data.projectDescription}}</div>
+    <div ng-show='editProjectDescription' >    
+      <textarea ng-model="data.projectDescription" class='inputProjectDescriptionEdit' ng-dblClick="editProjectDescription = false;"></textarea>
+    </div>
+  </div>
+
+
+  <div class='projectTitles'>
+    <span ng-init='editProjectTitle = false;' ng-click='editProjectTitle = !editProjectTitle;'>Title:
+      <span ng-show='!editProjectTitle'>{{data.projectTitle}}</span></span>
+      <input  ng-show='editProjectTitle' ng-model="data.projectTitle" ng-dblClick='editProjectTitle = false;'>
+
+
+      <span ng-init='editProjectClient = false;' ng-click='editProjectClient = !editProjectClient;'>Client:
+        <span ng-show='!editProjectClient'>{{data.projectClient}}</span></span>
+        <input  ng-show='editProjectClient' ng-model="data.projectClient" ng-dblClick='editProjectClient = false;'>
+
+        <span ng-init='editProjectDiscipline = false;' ng-click='editProjectDiscipline = !editProjectDiscipline;'>Discipline:
+          <span ng-show='!editProjectDiscipline'>{{data.projectDiscipline}}</span></span>
+          <input  ng-show='editProjectDiscipline' ng-model="data.projectDiscipline" ng-dblClick='editProjectDiscipline = false;'>
+
+
+          <span ng-init='editProjectCollaborator = false;' ng-click='editProjectCollaborator = !editProjectCollaborator;'>Collaborator:
+            <span ng-show='!editProjectCollaborator'>{{data.projectCollaborator}}</span></span>
+            <input  ng-show='editProjectCollaborator' ng-model="data.projectCollaborator" ng-dblClick='editProjectCollaborator = false;'>
+
+            <span ng-init='editProjectDetails = false;' ng-click='editProjectDetails = !editProjectDetails;'>Details:
+              <span ng-show='!editProjectDetails'>{{data.projectDetails}}</span></span>
+              <input  ng-show='editProjectDetails' ng-model="data.projectDetails" ng-dblClick='editProjectDetails = false;'>
+
+              <span ng-init='editProjectUrl = false;' ng-click='editProjectUrl = !editProjectUrl;'>Url:
+                <a ng-show='!editProjectUrl' ng-href='https://{{data.projectUrl}}'>{{data.projectUrl}}</a></span>
+                <input  ng-show='editProjectUrl' ng-model="data.projectUrl" ng-dblClick='editProjectUrl = false;'>
+
+              </div>
+
+            </div>
+
+            <div class='submitContainer'>
+              <button class='inputTitleEditBtn'>Create Project</button>
+            </div>
+
+            <div class='rectContainer'>
+              <svg class='svgLeft'>
+                <g>
+                  <rect class='rectLeft'/>
+                  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
+                </g>
+              </svg>
+              <svg class='svgLine'>
+                <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
+              </svg>
+              <svg class='svgRight'>
+                <g>
+                  <rect class='rectRight'/>
+                  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>
+                </g>
+              </svg>
+            </div>
