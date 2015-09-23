@@ -1,5 +1,5 @@
 var Redis = require('ioredis');
-var redis = new Redis();
+var redis = new Redis(6379, '52.89.205.97');
 var bcrypt = require('bcryptjs');
 
 

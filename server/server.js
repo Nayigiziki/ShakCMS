@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser');
 var routes = require('./routes.js');
 
 var sessionStore = new RedisStore({
-  host:'127.0.0.1',
+  host:'52.89.205.97',
   port: 6379
 });
 //server site

@@ -1,10 +1,8 @@
 <html ng-app='shakApp'>
- <!-- Body tag augmented with ngController directive  -->
  <head>
   <link rel="stylesheet" href="./main.css">
-  <link rel="import" href="bower_components/basic-autosize-textarea/basic-autosize-textarea.html">
-   <script src='/node_modules/angular/angular.js'></script>
-   <script src='/node_modules/ui-router/angular-ui-router.js'></script>
+   <script src='../server/node_modules/angular/angular.js'></script>
+   <script src='../server/node_modules/ui-router/angular-ui-router.js'></script>
    <script src='/controllers/loginController.js'></script>
    <script src='/controllers/registerController.js'></script>
    <script src='/controllers/dashboardController.js'></script>
@@ -14,7 +12,5 @@
    <script src='/controllers/listProjectsController.js'></script>
    <script src='app.js'></script>
  </head>
- <body ui-view>
-  
- </body>
+ <body ui-view></body>
 </html>
