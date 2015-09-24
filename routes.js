@@ -17,7 +17,7 @@ var setup = function(app) {
 
   });
 
-  //default image response
+  //default response
   app.get('*', function(req, res) {
     res.send('what?');
   });

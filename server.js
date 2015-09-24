@@ -12,11 +12,11 @@ var cookieParser = require('cookie-parser');
 var routes = require('./routes.js');
 
 var sessionStore = new RedisStore({
-  host:'52.89.205.97',
+  host:'127.0.0.1',
   port: 6379
 });
 //server site
-app.use(express.static(__dirname + '/../client/'));
+app.use(express.static(__dirname + '/client/'));
 
 app.use(session({
   store: sessionStore,

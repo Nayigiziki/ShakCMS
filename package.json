@@ -2,7 +2,7 @@
   "name": "cms",
   "version": "1.0.0",
   "description": "Shak's Content Management site",
-  "main": "server/server.js",
+  "main": "./server.js",
   "scripts": {
     "test": "mocha testing-suite/addProjectControllerSpecs.js "
   },

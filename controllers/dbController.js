@@ -1,5 +1,5 @@
 var Redis = require('ioredis'),
-    redis = new Redis(6379, '52.89.205.97'),
+    redis = new Redis(),
     stringify = require('node-stringify');
 
 //"ProjectName-Discipline-Date"
