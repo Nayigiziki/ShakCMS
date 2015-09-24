@@ -16,7 +16,7 @@ var sessionStore = new RedisStore({
   port: 6379
 });
 //server site
-app.use(express.static(__dirname + '/client/'));
+app.use( express.static(__dirname + '/client/'));
 
 app.use(session({
   store: sessionStore,
