@@ -1,6 +1,6 @@
-var Redis = require('ioredis');
-var redis = new Redis();
+var userCollection = require('../db/db').user;
 var bcrypt = require('bcryptjs');
+var UserModel = require('../db/db').userModel;
 
 
 var comparePasswords = function (passwordProvided, passwordDb, callback) {
@@ -24,15 +24,17 @@ var generateHashedPassword =  function(pass) {
 
 var userDne  = function(user, cb){
   console.log('user ', user);
-  redis.hget('users', user, function(err, result){
-    if(err){
+  
+  UserModel.findOne({ username: user }, function (err, user) {
+    if (err) {
       console.log('err ', err);
       cb(false);
     } else {
-      console.log('hget result ', result);
-      cb(result);
+      console.log('user find result ', user);
+      cb(user);
     }
   })
+
 }
 
 module.exports = {
@@ -42,8 +44,8 @@ module.exports = {
     userDne(user.username, function(userExists){
       if(userExists) {
         console.log('user exists, checking passwords');
-        if(bcrypt.compareSync(user.password, userExists)){
-          
+        if(bcrypt.compareSync(user.password, userExists)){//need to make sure userExists is the passworddb
+          console.log('req session ', req.session);
           console.log('sessionID ', req.sessionID);
           console.log('session before setting user.username signup ', req.session);
           req.session.email = user.username;
@@ -61,22 +63,23 @@ module.exports = {
   signup: function (req, res, next) {
     var user = req.body;
     console.log('signup');
+    console.log('req session ', req.session);
+
     userDne(user.username, function(userExists){
       if(userExists) {
         res.status(400).json({status: 'user exists'});
       } else {
         console.log('generating salt');
         var salt = generateHashedPassword(user.password);
-        redis.hset('users', user.username, salt);
-        console.log('sessionID ', req.sessionID);
-        console.log('session before setting user.username signup ', req.session);
-        
-        req.session.save(function(err) {
-          // will have a new session here 
-        })
-        req.session.email = user.username;
-        console.log('session after creation ', req.session);
-        res.status(201).json({status: 'user created'});
+        var newUser = new UserModel({username:user.username, password: salt})
+        newUser.save(function (err, newDood) {
+          if (err) return console.error(err);
+          console.log('sessionID ', req.sessionID);
+          console.log('session before setting user.username signup ', req.session);
+          req.session.email = user.username;
+          console.log('session after creation ', req.session);
+          res.status(201).json({status: 'user created'});
+        });
       }
     });
 
