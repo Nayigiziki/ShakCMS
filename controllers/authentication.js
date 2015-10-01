@@ -24,7 +24,6 @@ var generateHashedPassword =  function(pass) {
 
 var userDne  = function(user, cb){
   console.log('user ', user);
-  
   UserModel.findOne({ username: user }, function (err, user) {
     if (err) {
       console.log('err ', err);
@@ -34,7 +33,6 @@ var userDne  = function(user, cb){
       cb(user);
     }
   })
-
 }
 
 module.exports = {
