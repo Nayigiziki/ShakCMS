@@ -7,9 +7,8 @@ var session = require('express-session');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes.js');
-var dbConfig = require('./db/config');
 var mongoose = require('mongoose');
-var dbUrl = 'mongodb://'+ dbConfig.user +':'+ dbConfig.pass +'@ds045242.mongolab.com:45242/shak';
+var dbUrl = 'mongodb://shak:shak@ds045242.mongolab.com:45242/shak';
 var MongoStore = require('connect-mongo')(session);
 var sessionStore =  new MongoStore({ url: dbUrl});
 
