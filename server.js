@@ -15,7 +15,7 @@ var sessionStore =  new MongoStore({ url: dbUrl});
 var initServer = function() {
   // attaches all the routes to the server
   routes.setup(app);
-  var port = process.env.PORT || 3001;
+  var port = process.env.PORT || 8081;
   var server = app.listen(port);
   console.log("Express server listening on %d in %s mode", port, app.settings.env)
 }
