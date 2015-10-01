@@ -8,7 +8,7 @@ var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes.js');
 var mongoose = require('mongoose');
-var dbUrl = 'mongodb://shak:shak@ds045242.mongolab.com:45242/shak';
+var dbUrl = 'mongodb://shak:shak@ds027519.mongolab.com:27519/shak1';
 var MongoStore = require('connect-mongo')(session);
 var sessionStore =  new MongoStore({ url: dbUrl});
 
