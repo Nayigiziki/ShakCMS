@@ -8,14 +8,14 @@ var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes.js');
 var mongoose = require('mongoose');
-var dbUrl = 'mongodb://shak:shak@ds027519.mongolab.com:27519/shak1';
+var dbUrl = 'mongodb://localhost/shak';
 var MongoStore = require('connect-mongo')(session);
 var sessionStore =  new MongoStore({ url: dbUrl});
 
 var initServer = function() {
   // attaches all the routes to the server
   routes.setup(app);
-  var port = process.env.PORT || 8081;
+  var port = process.env.PORT || 3000;
   var server = app.listen(port);
   console.log("Express server listening on %d in %s mode", port, app.settings.env)
 }

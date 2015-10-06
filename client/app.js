@@ -65,7 +65,7 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('Server', function($http){
-  var baseUrl = 'http://172.31.1.197/api/';
+  var baseUrl = 'http://127.0.0.1:3000/api/';
   var post = function(url, data){
     return $http.post(baseUrl + url, data)
     .then(function(response) {
@@ -99,7 +99,7 @@ var myApp = angular.module('shakApp',
   }
 })
 .factory('Auth', function($http, $state){
-  var baseUrl = 'http://172.31.1.197/api/isAuth';
+  var baseUrl = 'http://127.0.0.1:3000/api/isAuth';
   var isAuth = function(){
     return $http.get(baseUrl)
     .then(function(response) {

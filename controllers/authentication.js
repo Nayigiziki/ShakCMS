@@ -42,7 +42,7 @@ module.exports = {
     userDne(user.username, function(userExists){
       if(userExists) {
         console.log('user exists, checking passwords');
-        if(bcrypt.compareSync(user.password, userExists)){//need to make sure userExists is the passworddb
+        if(bcrypt.compareSync(user.password, userExists.password)){//need to make sure userExists is the passworddb
           console.log('req session ', req.session);
           console.log('sessionID ', req.sessionID);
           console.log('session before setting user.username signup ', req.session);
