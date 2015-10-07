@@ -1,5 +1,5 @@
 var authentication = require('./controllers/authentication');
-
+var cloudinary = require('./controllers/cloudinary');
 
 var setup = function(app) {
   //need tests
@@ -7,7 +7,7 @@ var setup = function(app) {
   app.post('/api/login' , authentication.login);
   app.get('/api/logout', authentication.logout);
   app.get('/api/isAuth', authentication.checkUser);
-
+  // app.get('/api/getImgCredentials', authentication.isAuth, cloudinary.getCredentials);
 
   app.post('/api/images', function (req, res) {
 

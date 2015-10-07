@@ -1,6 +1,8 @@
 angular.module('shakApp.addProject', [])
 .controller('addProjectController', function($scope, Server, $state){
     //"ProjectName-Discipline-Date"
+    // cloudinary.cloudinary_js_config();
+    
     var data = {
       image : 'http://img.ffffound.com/static-data/assets/6/fb5f4b73f74d14b59b583f2d0fff8e374e541024_m.jpg',
       projectDescription :'I am the founder and current director of this project, overseeing all areas including research, graphic design, web design, social media presence, and performances.',
