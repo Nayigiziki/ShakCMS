@@ -285,6 +285,7 @@ body {
   display: flex;
   align-items : center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .inputTitleEditBtn {
@@ -307,6 +308,11 @@ body {
 
 .inputTitleEditBtn:focus {
   outline: none;
+}
+
+#terrio {
+  display: block;
+  padding-top: 12px;
 }
 
 

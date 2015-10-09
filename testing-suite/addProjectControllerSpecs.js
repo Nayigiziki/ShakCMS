@@ -9,7 +9,7 @@ stringify = require('node-stringify');
 
 
 
-describe('Authentication', function() {
+describe('Add Project Controller', function() {
   var app = express();
   
 
@@ -30,6 +30,8 @@ describe('Authentication', function() {
             if(!err){
               expect(!!err).to.equal(false);
               done();
+            } else{
+              console.log('err', err);
             }
           })
         });

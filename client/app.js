@@ -7,7 +7,8 @@ var myApp = angular.module('shakApp',
   'shakApp.addProject',
   'shakApp.work',
   'shakApp.project',
-  'shakApp.listProjects'
+  'shakApp.listProjects', 
+  'ngFileUpload'
   ])
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -121,7 +122,6 @@ var myApp = angular.module('shakApp',
 
 })
 .run(function(Auth, $state, $rootScope){
-  $.cloudinary.config({ cloud_name: 'shakeil-com', api_key: '342745731731399'})
 
   Auth.isAuth()
   .then(function(response){

@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var basePath = __dirname + '/../../images/';
+var basePath = __dirname + '/../images/';
 
 var saveImageToFs = function(fileName, imagedata, cb){
   fs.writeFile(basePath + fileName, imagedata, 'binary', function(err){

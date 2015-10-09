@@ -9,8 +9,13 @@
 
 <div class='projectImgContainer'>
   <img  class='projectImg' src="{{data.image}}">
-  <input my-upload type="file" name="upload"/>
+  <input type="file"  my-upload ngf-select="uploadFiles($file, $invalidFiles)"
+  accept="image/*"></input>
+
+
 </div>
+
+
 
 
 <div class='projectDescriptionContainer'>
@@ -53,8 +58,10 @@
 
             </div>
 
+            
             <div class='submitContainer'>
-              <button class='inputTitleEditBtn'>Create Project</button>
+              <button ng-init='createProjectStatus = "Create Project"; imagePreloader = false' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
+              <iframe  ng-if='imagePreloader' id='terrio' align='middle' src="//giphy.com/embed/aQDknTwpx32aQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             </div>
 
             <div class='rectContainer'>
