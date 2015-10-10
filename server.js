@@ -21,7 +21,7 @@ var initServer = function() {
 }
 
 mongoose.connect(dbUrl);
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 app.use(express.static(__dirname + '/client/'));
 app.use(parser.urlencoded({extended: true}));
 app.use(parser.json());

@@ -3,7 +3,8 @@ var ProjectModel = require('../db/db').projectModel;
 
 
 var saveToDb = function(project){
-  var newProject = new ProjectModel({projectTitle: project.title, projectDetails: project.details});
+  
+  var newProject = new ProjectModel({projectTitle: project.projectTitle, projectDetails: project.details});
   newProject.save(function(err, newProj){
     if(err){
       console.log('err ' , err);

@@ -1,4 +1,6 @@
 var authentication = require('./controllers/authentication');
+var db = require('./controllers/dbController');
+
 
 var setup = function(app) {
   //need tests
@@ -6,13 +8,8 @@ var setup = function(app) {
   app.post('/api/login' , authentication.login);
   app.get('/api/logout', authentication.logout);
   app.get('/api/isAuth', authentication.checkUser);
-  app.post('/api/images', function (req, res) {
 
-  });
-
-  app.post('/api/projects', function(req, res){
-
-  });
+  // app.post('/api/createProject', db.isAuth, db);
 
   //default response
   app.get('*', function(req, res) {

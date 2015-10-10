@@ -1,5 +1,5 @@
 angular.module('shakApp.addProject', [])
-.controller('addProjectController', function($scope, Server, $state, Upload){
+.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
     $scope.imagePreloader = false;
@@ -13,16 +13,33 @@ angular.module('shakApp.addProject', [])
       projectCollaborator :'Joe Daddy and Shak',
       projectDetails :'Tea time',
       projectUrl :'www.google.com',
-      projectDiscipline : 'identity'
+      projectDiscipline : 'identity',
+      projectYear : 2015
     };
 
     $scope.data = data;
     
     $scope.createProject = function(){
-      console.log('project');
-      var url = 'project';
-      Server.post(url, data).then(function(response){
+      console.log('creating project');
+
+      var project = {
+        projectDescription : $scope.data.projectDescription,
+        projectTitle : $scope.data.projectTitle,
+        projectClient : $scope.data.projectClient,
+        projectCollaborator : $scope.data.projectCollaborator,
+        projectDetails : $scope.data.projectDetails,
+        projectUrl : $scope.data.projectUrl,
+        projectDiscipline : $scope.data.projectDiscipline,
+        projectImageUrl : $scope.data.projectImageUrl,
+        projectYear : $scope.data.projectImageUrl
+      }
+
+      Server.post('createProject', project)
+      .then(function(response){
         console.log(response);
+      }, function(err){
+        console.log('error ', err);
+
       })
     }
 
@@ -36,31 +53,27 @@ angular.module('shakApp.addProject', [])
     $scope.uploadImgToCloudinary = function(){
       console.log('click');
       if(data.file) {
-        
-        Upload.upload({
-          url: 'https://api.cloudinary.com/v1_1/shak-com/image/upload',
-          data: {
-            file: data.file,
-            api_key: 342745731731399,
-            timestamp: Date.now(),
-            public_id : data.projectTitle,
-            upload_preset : 'u1r4ljrn'
-          }
-        })
-        .then(function (response) {
-            console.log('success response ', response);
-            $scope.createProjectStatus = 'Image uploaded';
+        Cloudinary.upload(data.file, data.projectTitle)
+          .then(function (response) {
+            console.log(response);
+            $scope.data.projectImageUrl = response.data.secure_url;
+            $scope.createProjectStatus = 'Create project';
+            toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Image Uploaded!', {allowHtml: true});
+            $timeout(function(){
+              $scope.imagePreloader = false;
+            }, 5000);
+            $scope.createProject();
+          }, function (response) {
             $scope.imagePreloader = false;
-        }, function (response) {
-          $scope.imagePreloader = false;
-          console.log('Error status: ' + response.status);
-        }, function (evt) {
-          $scope.createProjectStatus = "loading";
-          $scope.imagePreloader = true;
-          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        });
+            console.log('Error status: ' + response.status);
+            $scope.createProjectStatus = 'Image upload Error, please try again';
 
+          }, function (evt) {
+            $scope.createProjectStatus = "loading";
+            $scope.imagePreloader = true;
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+          });
 
       }
     }
@@ -78,6 +91,7 @@ angular.module('shakApp.addProject', [])
     restrict: 'A',
     link: function (scope, elem, attrs) {
       var reader = new FileReader();
+
       reader.onload = function (e) {
         scope.data.image = e.target.result;    
         scope.$apply();

@@ -54,14 +54,19 @@
                 <a ng-show='!editProjectUrl' ng-href='https://{{data.projectUrl}}'>{{data.projectUrl}}</a></span>
                 <input  ng-show='editProjectUrl' ng-model="data.projectUrl" ng-dblClick='editProjectUrl = false;'>
 
+              <span ng-init='editProjectYear = false;' ng-click='editProjectYear = !editProjectYear;'>Year:
+                <span ng-show='!editProjectYear'>{{data.projectYear}}</span></span>
+                <input  ng-show='editProjectYear' ng-model="data.projectYear" ng-dblClick='editProjectYear = false;'>
+
+
               </div>
 
             </div>
 
             
             <div class='submitContainer'>
-              <button ng-init='createProjectStatus = "Create Project"; imagePreloader = false' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
-              <iframe  ng-if='imagePreloader' id='terrio' align='middle' src="//giphy.com/embed/aQDknTwpx32aQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+              <button ng-init='createProjectStatus = "Create Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
+
             </div>
 
             <div class='rectContainer'>

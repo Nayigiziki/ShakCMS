@@ -8,9 +8,10 @@ var myApp = angular.module('shakApp',
   'shakApp.work',
   'shakApp.project',
   'shakApp.listProjects', 
-  'ngFileUpload'
+  'ngFileUpload',
+  'toastr'
   ])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 
 
   $stateProvider
@@ -63,6 +64,20 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/listProjects.html',
     controller : 'listProjectsController'
   })
+
+  angular.extend(toastrConfig, {
+    autoDismiss: false,
+    containerId: 'toast-container',
+    maxOpened: 0,    
+    newestOnTop: true,
+    positionClass: 'toast-top-right',
+    preventDuplicates: false,
+    preventOpenDuplicates: false,
+    target: 'body',
+    timeOut : 5000,
+    progressBar: true,
+    tapToDismiss: true,
+  });
 
 })
 .factory('Server', function($http){
@@ -118,6 +133,27 @@ var myApp = angular.module('shakApp',
 
   return {
     isAuth : isAuth
+  }
+
+})
+.factory('Cloudinary', function($http, $state, Upload){
+  var baseUrl = 'https://api.cloudinary.com/v1_1/shak-com/image/upload';
+  var upload = function(file, projectTitle){
+    return Upload.upload({
+              url: baseUrl,
+              data: {
+                file: file,
+                api_key: 342745731731399,
+                timestamp: Date.now(),
+                public_id : projectTitle,
+                upload_preset : 'u1r4ljrn'
+              }
+            })
+  }
+
+
+  return {
+    upload : upload
   }
 
 })
