@@ -32,7 +32,6 @@
       <span ng-show='!editProjectTitle'>{{data.projectTitle}}</span></span>
       <input  ng-show='editProjectTitle' ng-model="data.projectTitle" ng-dblClick='editProjectTitle = false;'>
 
-
       <span ng-init='editProjectClient = false;' ng-click='editProjectClient = !editProjectClient;'>Client:
         <span ng-show='!editProjectClient'>{{data.projectClient}}</span></span>
         <input  ng-show='editProjectClient' ng-model="data.projectClient" ng-dblClick='editProjectClient = false;'>
@@ -57,8 +56,6 @@
               <span ng-init='editProjectYear = false;' ng-click='editProjectYear = !editProjectYear;'>Year:
                 <span ng-show='!editProjectYear'>{{data.projectYear}}</span></span>
                 <input  ng-show='editProjectYear' ng-model="data.projectYear" ng-dblClick='editProjectYear = false;'>
-
-
               </div>
 
             </div>

@@ -4,7 +4,8 @@
   "description": "Shak's Content Management site",
   "main": "./server.js",
   "scripts": {
-    "test": "mocha testing-suite/addProjectControllerSpecs.js "
+    "test": "mocha testing-suite/addProjectControllerSpecs.js ",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,8 @@
     "morgan": "^1.6.1",
     "node-stringify": "0.0.18",
     "superagent": "^1.4.0",
-    "ui-router": "0.0.1"
+    "ui-router": "0.0.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

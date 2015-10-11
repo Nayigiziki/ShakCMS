@@ -40,13 +40,15 @@ var myApp = angular.module('shakApp',
     parent: 'dashboard',
     url: '/work',
     templateUrl: 'views/work.html',
-    controller : 'workController'
+    controller : 'workController' 
+
   })
   .state('project', {
     parent: 'dashboard',
     url: '/project',
     templateUrl: 'views/project.html',
-    controller : 'projectController'
+    controller : 'projectController',
+    params : {project: null}
   })
   .state('about', {
     parent: 'dashboard',
@@ -157,8 +159,27 @@ var myApp = angular.module('shakApp',
   }
 
 })
-.run(function(Auth, $state, $rootScope){
+.factory('State', function($http, $state, Server){
+ var projects;
+ var getProjects =  function(){
+    Server.get('projects').then(function(dbProjects){
+      projects = dbProjects.data.projects;
+    }, function(err){
+      console.log(err);
+    })
+ }
 
+var getProjObj = function(){
+  return projects;
+}
+
+  return {
+    getProjects : getProjects,
+    getProjObj : getProjObj
+  }
+
+})
+.run(function(Auth, $state, $rootScope, State){
   Auth.isAuth()
   .then(function(response){
     console.log(response);
@@ -166,6 +187,7 @@ var myApp = angular.module('shakApp',
       $state.go('login');
     } else {
       $state.go('dashboard');
+      State.getProjects();
     }
   }).catch(function(err){
     $state.go('login');

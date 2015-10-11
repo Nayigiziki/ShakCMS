@@ -2,15 +2,17 @@ var mongoose = require('mongoose');
 var ProjectModel = require('../db/db').projectModel;
 
 
-var saveToDb = function(project){
+var saveToDb = function(project, cb){
   
-  var newProject = new ProjectModel({projectTitle: project.projectTitle, projectDetails: project.details});
+  var newProject = new ProjectModel({project: project});
+  
   newProject.save(function(err, newProj){
     if(err){
       console.log('err ' , err);
     } else {
       console.log('successfully saved Project ', newProj);
     }
+    cb(err, newProj);
   })
 }
 
@@ -24,6 +26,31 @@ var getFromDb = function(projectTitle, cb){
       cb(proj);
     }
   })
+}
+
+var getFromDb = function(projectTitle, cb){
+  ProjectModel.find({}, function (err, proj) {
+    if (err) {
+      console.log('err ', err);
+      cb(false);
+    } else {
+      console.log('user find result ', proj);
+      cb(proj);
+    }
+  })
+}
+
+var getAllProjectsFromDB = function(cb){
+  ProjectModel.find({}, function (err, proj) {
+    if (err) {
+      console.log('err ', err);
+      cb(false)
+    } else {
+      console.log('user find result ', proj);
+      cb(proj);
+    }
+  })
+  
 }
 
 var deleteFromDb = function(category, projectTitle){
@@ -44,9 +71,9 @@ module.exports = {
   saveToDb : saveToDb,
   getFromDb : getFromDb,
   deleteFromDb : deleteFromDb,
-  deleleDb : deleleDb
+  deleleDb : deleleDb,
+  getAllProjectsFromDB : getAllProjectsFromDB
 };
-
 
 
 

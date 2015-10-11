@@ -1,7 +1,9 @@
 angular.module('shakApp.work', [])
-  .controller('workController', function($scope, Server, $state){
+  .controller('workController', function($scope, Server, $state, State){
     var data = {};
 
+    $scope.projects =  State.getProjObj();
+    console.log($scope.projects);
     $scope.register = function(){
       var url = 'register';
       var data = {
@@ -34,9 +36,9 @@ angular.module('shakApp.work', [])
       //set obj[discipline value] to ngRepeat scope variable
     }
 
-    $scope.goToProj = function(){
-      console.log('dasdsa')
-      $state.go('project');
+    $scope.goToProj = function(project){
+      console.log(project);
+      $state.transitionTo('project', {project: project});
     }
 
   });

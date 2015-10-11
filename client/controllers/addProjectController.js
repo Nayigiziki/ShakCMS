@@ -23,24 +23,26 @@ angular.module('shakApp.addProject', [])
       console.log('creating project');
 
       var project = {
-        projectDescription : $scope.data.projectDescription,
         projectTitle : $scope.data.projectTitle,
+        projectDescription : $scope.data.projectDescription,
         projectClient : $scope.data.projectClient,
+        projectDiscipline : $scope.data.projectDiscipline,
         projectCollaborator : $scope.data.projectCollaborator,
+        projectYear : $scope.data.projectYear,
         projectDetails : $scope.data.projectDetails,
         projectUrl : $scope.data.projectUrl,
-        projectDiscipline : $scope.data.projectDiscipline,
-        projectImageUrl : $scope.data.projectImageUrl,
-        projectYear : $scope.data.projectImageUrl
+        projectImageUrl : $scope.data.projectImageUrl
       }
 
       Server.post('createProject', project)
-      .then(function(response){
-        console.log(response);
-      }, function(err){
-        console.log('error ', err);
-
-      })
+        .then(function(response){
+          console.log(response);
+          toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Created!', {allowHtml: true});
+          // toastr.success('Project Created');
+        }, function(err){
+          console.log('error ', err);
+          toastr.success('Project failed to load');
+        })
     }
 
 
@@ -58,10 +60,7 @@ angular.module('shakApp.addProject', [])
             console.log(response);
             $scope.data.projectImageUrl = response.data.secure_url;
             $scope.createProjectStatus = 'Create project';
-            toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Image Uploaded!', {allowHtml: true});
-            $timeout(function(){
-              $scope.imagePreloader = false;
-            }, 5000);
+
             $scope.createProject();
           }, function (response) {
             $scope.imagePreloader = false;
