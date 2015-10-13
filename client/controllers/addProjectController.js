@@ -1,5 +1,5 @@
 angular.module('shakApp.addProject', [])
-.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams){
+.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams, State){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
 
@@ -37,7 +37,11 @@ angular.module('shakApp.addProject', [])
         .then(function(response){
           console.log(response);
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Created!', {allowHtml: true});
-          // toastr.success('Project Created');
+          State.getProjects();
+          $scope.createProjectStatus = 'Project Created';
+          $timeout(function(){
+            $state.go('work');
+          }, 1500);
         }, function(err){
           console.log('error ', err);
           toastr.success('Project failed to load');
@@ -53,7 +57,9 @@ angular.module('shakApp.addProject', [])
     $scope.uploadImgToCloudinary = function(){
       console.log('click');
       if(data.file) {
-        var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline;
+        var timeStamp = new Date();
+        timeStamp =  timeStamp.toString();
+        var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
         Cloudinary.upload(data.file, uploadTitle)
           .then(function (response) {
             console.log(response);

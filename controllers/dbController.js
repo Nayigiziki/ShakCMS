@@ -50,14 +50,16 @@ var editProjectDb = function(id, projectObj, cb){
 }
 
 
-var deleteProjectFromDb = function(_id, cb){
+var deleteProjectFromDb = function(id, cb){
   ProjectModel.findOne({ _id: id }).remove(function(err, obj){
     if(err){
       console.log('err ', err);
     } else {
       console.log('success');
     }
+    cb(err, obj);
   })
+
 }
 
 var deleteAllProjectsFromDb = function(cb){
@@ -79,4 +81,6 @@ module.exports = {
   deleteProjectFromDb : deleteProjectFromDb,
   deleteAllProjectsFromDb : deleteAllProjectsFromDb
 };
+
+
 

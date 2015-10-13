@@ -1,5 +1,5 @@
 angular.module('shakApp.editProject', [])
-.controller('editProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams){
+.controller('editProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams, State){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
     console.log($stateParams.project);
@@ -40,7 +40,20 @@ angular.module('shakApp.editProject', [])
         image.src = project.projectImageUrl;
 
 
-
+      $scope.deleteProject = function(){
+        Server.post('deleteProject', {id: data.projectID}).then(function(response){
+          State.getProjects();
+          console.log('response ', response);
+          $scope.deleteProjectStatus = 'Project Deleted';
+          toastr.success('have a good day','Successfully deleted the project');
+          $timeout(function(){
+            $state.go('work');
+          }, 1500);
+        }, function(err){
+          console.log('err ', err);
+          toastr.warning('please try again', 'Unsuccessfully deleted the project');
+        });
+      };
 
       $scope.editProject = function(){
         console.log('editing project');
@@ -64,8 +77,12 @@ angular.module('shakApp.editProject', [])
         .then(function(response){
           console.log(response);
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Updated!', {allowHtml: true});
-          // toastr.success('Project Created');
-          $scope.createProjectStatus = 'Edit project';
+          State.getProjects();
+          $scope.editProjectStatus = 'Project Edited';
+          $timeout(function(){
+            $state.go('work');
+          }, 1500);
+          
         }, function(err){
           console.log('error ', err);
           toastr.success('Project failed to update');

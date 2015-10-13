@@ -1,5 +1,5 @@
 <div ng-init='editTitle = false' >
-  <div ng-show='!editTitle'class='projectTitleTextContainer' ng-click="editTitle = !editTitle">
+  <div ng-show='!editTitle' class='projectTitleTextContainer' ng-click="editTitle = !editTitle">
     {{data.projectTitle}}
   </div>
   <div ng-show='editTitle' class='projectTitleTextContainer'>
@@ -60,7 +60,10 @@
 
             
             <div class='submitContainer'>
-              <button ng-init='createProjectStatus = "Edit Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
+              <button ng-init='editProjectStatus = "Edit Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{editProjectStatus}}</button>
+            </div>
+            <div class='submitContainer'>
+              <button ng-init='deleteProjectStatus = "Delete Project"' class='inputTitleEditBtn' ng-click='deleteProject()'>{{deleteProjectStatus}}</button>
             </div>
 
             <div class='rectContainer'>
