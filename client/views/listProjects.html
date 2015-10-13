@@ -6,12 +6,11 @@
   <a class='itemWork'href="" ng-click='show("direction")'>direction</a>
 </nav>
 
-<div class='imgContainer' ng-click='goToProj()'>
-  <span class='overLayContainer' >
-    <img class='workImg' src="http://img.ffffound.com/static-data/assets/6/375a493518520c0db280a872f99e955e88854c98_m.jpg">
-    <span align='middle' class='overLay'>
+<div class='imgContainer'>
+  <span class='overLayContainer' ng-repeat='(key, projectObj) in projects' ng-click='goToProj(projectObj, key)'>
+    <img class='workImg' ng-src="{{projectObj.project.projectImageUrl}}">
+    <span align='middle' class='overLay'>{{projectObj.project.projectTitle}}
       <img class='logoEdit' src="pencil.png">
-      <img class='logoEdit' src="x.png">
     </span>
   </span>
 </div>

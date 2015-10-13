@@ -3,7 +3,7 @@ var ProjectModel = require('../db/db').projectModel;
 
 
 var saveToDb = function(project, cb){
-  
+
   var newProject = new ProjectModel({project: project});
   
   newProject.save(function(err, newProj){
@@ -26,6 +26,18 @@ var getFromDb = function(projectTitle, cb){
       cb(proj);
     }
   })
+}
+
+
+var editDb = function(id, projectObj, cb){
+  ProjectModel.update({ _id: id }, { $set: { project: projectObj}}, function(err, proj){
+    if(err){
+      console.log('err ' , err);
+    } else {
+      console.log('successfully saved Project ', proj);
+    }
+    cb(err, proj);
+  });
 }
 
 var getFromDb = function(projectTitle, cb){

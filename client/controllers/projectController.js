@@ -1,8 +1,15 @@
 angular.module('shakApp.project', [])
   .controller('projectController', function($scope, Server, $state, $stateParams){
     
+    if(!$stateParams.project){
+      $state.go('work');
+    } else {
+      var project = $stateParams.project.project;
+      var prevProject = $stateParams.prevProject;
+      var nextProject = $stateParams.nextProject;
+    }
 
-    var project = $stateParams.project.project;
+    console.log($stateParams);
 
     var data = {
       image : project.projectImageUrl,
@@ -13,7 +20,9 @@ angular.module('shakApp.project', [])
       projectDetails : project.projectDetails,
       projectUrl : project.projectUrl,
       projectDiscipline : project.projectDiscipline,
-      projectYear: project.projectYear
+      projectYear: project.projectYear,
+      nextProject : nextProject,
+      prevProject : prevProject
     };
 
     $scope.data = data;

@@ -1,9 +1,7 @@
 angular.module('shakApp.addProject', [])
-.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr){
+.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
-    $scope.imagePreloader = false;
-
 
     var data = {
       image : 'http://img.ffffound.com/static-data/assets/6/fb5f4b73f74d14b59b583f2d0fff8e374e541024_m.jpg',
@@ -14,7 +12,8 @@ angular.module('shakApp.addProject', [])
       projectDetails :'Tea time',
       projectUrl :'www.google.com',
       projectDiscipline : 'identity',
-      projectYear : 2015
+      projectImageUrl : 'http://img.ffffound.com/static-data/assets/6/fb5f4b73f74d14b59b583f2d0fff8e374e541024_m.jpg'
+
     };
 
     $scope.data = data;
@@ -45,7 +44,6 @@ angular.module('shakApp.addProject', [])
         })
     }
 
-
     $scope.uploadFiles = function(file, errFiles) { 
       $scope.data.file = file;
       console.log('file ', file);
@@ -55,34 +53,27 @@ angular.module('shakApp.addProject', [])
     $scope.uploadImgToCloudinary = function(){
       console.log('click');
       if(data.file) {
-        Cloudinary.upload(data.file, data.projectTitle)
+        var timeStamp = new Date();
+        timeStamp = timeStamp.toString();
+        var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
+        Cloudinary.upload(data.file, uploadTitle)
           .then(function (response) {
             console.log(response);
             $scope.data.projectImageUrl = response.data.secure_url;
             $scope.createProjectStatus = 'Create project';
-
             $scope.createProject();
           }, function (response) {
-            $scope.imagePreloader = false;
             console.log('Error status: ' + response.status);
             $scope.createProjectStatus = 'Image upload Error, please try again';
 
           }, function (evt) {
             $scope.createProjectStatus = "loading";
-            $scope.imagePreloader = true;
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
           });
 
       }
     }
-
-    $scope.addProject = function(){
-      //upload image
-      //save project to db
-
-    }
-
 
   })
 .directive('myUpload', [ 'Upload', function (Upload) {
@@ -92,7 +83,7 @@ angular.module('shakApp.addProject', [])
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        scope.data.image = e.target.result;    
+        scope.data.projectImageUrl = e.target.result;    
         scope.$apply();
       }
 

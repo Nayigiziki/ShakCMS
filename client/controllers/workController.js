@@ -1,29 +1,10 @@
 angular.module('shakApp.work', [])
   .controller('workController', function($scope, Server, $state, State){
     var data = {};
+    $scope.projects =  State.getProjObj().data;
+    var largestIndex = $scope.projects.length - 1;
 
-    $scope.projects =  State.getProjObj();
-    console.log($scope.projects);
-    $scope.register = function(){
-      var url = 'register';
-      var data = {
-        username: $scope.data.user,
-        password : $scope.data.password
-      }
-      
-      $scope.data.user = '';
-      $scope.data.password = '';
-      console.log('registering');
-      Server.post(url, data).then(function(response){
-        console.log(response);
-        if(response.status === 201) {
-          $state.go('dashboard');
-        } else {
-          $scope.error = 'User name exists';
-        }
-      })
 
-    }
 
     $scope.show = function(discipline){
       var obj = {
@@ -36,9 +17,26 @@ angular.module('shakApp.work', [])
       //set obj[discipline value] to ngRepeat scope variable
     }
 
-    $scope.goToProj = function(project){
-      console.log(project);
-      $state.transitionTo('project', {project: project});
+    $scope.goToProj = function(project, key){
+      var prevKey, nextKey;
+
+      if(key === 0){
+        prevKey = largestIndex;
+        nextKey = key + 1;
+      } else if(key === largestIndex){
+        prevKey = key - 1;
+        nextKey = 0
+      } else {
+        prevKey =  key - 1;
+        nextKey = key + 1;
+      }
+
+
+      $state.transitionTo('project', {
+        project: project, 
+        prevProject : $scope.projects[prevKey],
+        nextProject : $scope.projects[nextKey]
+      });
     }
 
   });

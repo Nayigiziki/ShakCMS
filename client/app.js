@@ -8,6 +8,7 @@ var myApp = angular.module('shakApp',
   'shakApp.work',
   'shakApp.project',
   'shakApp.listProjects', 
+  'shakApp.editProject', 
   'ngFileUpload',
   'toastr'
   ])
@@ -36,6 +37,17 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/addProject.html',
     controller : 'addProjectController'
   })
+  .state('editProject', {
+    parent: 'dashboard',
+    url: '/editProject',
+    templateUrl: 'views/editProject.html',
+    controller : 'editProjectController',
+    params : {
+      project: null,
+      prevProject : null,
+      nextProject : null,
+    }
+  })
   .state('work', {
     parent: 'dashboard',
     url: '/work',
@@ -48,7 +60,11 @@ var myApp = angular.module('shakApp',
     url: '/project',
     templateUrl: 'views/project.html',
     controller : 'projectController',
-    params : {project: null}
+    params : {
+      project: null,
+      prevProject : null,
+      nextProject : null,
+    }
   })
   .state('about', {
     parent: 'dashboard',
@@ -117,6 +133,13 @@ var myApp = angular.module('shakApp',
   }
 })
 .factory('Auth', function($http, $state){
+  var protectedViews = {
+    'addProject' : 'addProject',
+    'listProjects' : 'listProjects',
+    'dashboard' : 'dashboard',
+    'editProject' : 'editProject'
+  }
+
   var baseUrl = 'http://127.0.0.1:3001/api/isAuth';
   var isAuth = function(){
     return $http.get(baseUrl)
@@ -132,9 +155,13 @@ var myApp = angular.module('shakApp',
         return response;
       });
   }
+  var getProtectedViews = function(){
+    return protectedViews;
+  }
 
   return {
-    isAuth : isAuth
+    isAuth : isAuth,
+    getProtectedViews : getProtectedViews
   }
 
 })
@@ -142,15 +169,15 @@ var myApp = angular.module('shakApp',
   var baseUrl = 'https://api.cloudinary.com/v1_1/shak-com/image/upload';
   var upload = function(file, projectTitle){
     return Upload.upload({
-              url: baseUrl,
-              data: {
-                file: file,
-                api_key: 342745731731399,
-                timestamp: Date.now(),
-                public_id : projectTitle,
-                upload_preset : 'u1r4ljrn'
-              }
-            })
+      url: baseUrl,
+      data: {
+        file: file,
+        api_key: 342745731731399,
+        timestamp: Date.now(),
+        public_id : projectTitle,
+        upload_preset : 'u1r4ljrn'
+      }
+    })
   }
 
 
@@ -160,18 +187,20 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('State', function($http, $state, Server){
- var projects;
- var getProjects =  function(){
+  var projects = {};
+  var timestamp = null;
+  var getProjects =  function(){
     Server.get('projects').then(function(dbProjects){
-      projects = dbProjects.data.projects;
+      timeStamp =  Date.now();
+      projects.data = dbProjects.data.projects;
     }, function(err){
       console.log(err);
     })
- }
+  }
 
-var getProjObj = function(){
-  return projects;
-}
+  var getProjObj = function(){
+    return projects;
+  }
 
   return {
     getProjects : getProjects,
@@ -180,17 +209,26 @@ var getProjObj = function(){
 
 })
 .run(function(Auth, $state, $rootScope, State){
-  Auth.isAuth()
-  .then(function(response){
-    console.log(response);
-    if(response.data.status === 'not logged in') {
-      $state.go('login');
-    } else {
-      $state.go('dashboard');
-      State.getProjects();
+  State.getProjects();
+
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    var protectedViews = Auth.getProtectedViews();
+    console.log('protected state state transition ', toState.name === protectedViews[toState.name]);
+
+    if(toState.name === protectedViews[toState.name]){
+      Auth.isAuth()
+      .then(function(response){
+        if(response.data.status === 'not logged in') {
+          event.preventDefault();
+          console.log('not logged in');
+          $state.go('login');
+        } 
+      }).catch(function(err){
+        event.preventDefault();
+        $state.go('login');
+      })
     }
-  }).catch(function(err){
-    $state.go('login');
   })
+
 });
 

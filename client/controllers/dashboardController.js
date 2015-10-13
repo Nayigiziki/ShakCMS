@@ -1,13 +1,5 @@
 angular.module('shakApp.dashboard', [])
-  .controller('dashboardController', function($scope, Server, $state, Auth){
-    Auth.isAuth()
-    .then(function(response){
-      console.log(response);
-      if(response.data.status === 'not logged in') {
-        $state.go('login');
-      }
-    })
-
+  .controller('dashboardController', function($scope, Server, $state){
     var data = {};
 
     $scope.logout = function(){
