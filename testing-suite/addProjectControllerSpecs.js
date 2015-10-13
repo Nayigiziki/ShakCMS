@@ -1,158 +1,98 @@
 var expect = require('chai').expect,
 request = require('superagent'),
 express = require('express'),
-Redis = require('ioredis'),
-images = require('../controllers/imagesFsController'),
+mongoose = require('mongoose'),
 projectCtrl = require('../controllers/dbController'),
-redis = new Redis(),
 stringify = require('node-stringify');
 
 
 
 describe('Add Project Controller', function() {
   var app = express();
+  var dbUrl = 'mongodb://localhost/shak';
+  mongoose.connect(dbUrl);
   
-
-  describe('adding a project ', function () {
-
+  describe('adding project details to the database', function () {
     afterEach(function() {
-      images.retrieveFileNames(function(filesArr){
-        filesArr.forEach(function(file){
-          images.deleteImage(file);
-        })
+      projectCtrl.deleteAllProjectsFromDb(function(err, obj){
+        if(err){
+          console.log(err);
+        }
       })
     });
 
-    describe('adding an image to the filesystem', function () {
-      it('should save an image to the database', function (done) {
-        images.retrieveImageFromFs(__dirname + '/testAssets/IMG_0064.tif', function(file){
-          images.saveImageToFs('test.tiff', file, function(err){
-            if(!err){
-              expect(!!err).to.equal(false);
-              done();
-            } else{
-              console.log('err', err);
-            }
-          })
-        });
-      });
+    var project1 = {
+      projectTitle : 'test',
+      projectDescription : 'test',
+      projectClient : 'test',
+      projectDiscipline : 'test',
+      projectCollaborator : 'test',
+      projectYear : 2015,
+      projectDetails : 'test',
+      projectUrl : 'test',
+      projectImageUrl : 'test'
+    };
 
-    });
+    var project2 = {
+      projectTitle : 'test2',
+      projectDescription : 'test',
+      projectClient : 'test',
+      projectDiscipline : 'test',
+      projectCollaborator : 'test',
+      projectYear : 2015,
+      projectDetails : 'test',
+      projectUrl : 'test',
+      projectImageUrl : 'test'
+    };
 
-    describe('adding project details to the database', function () {
+    var project2 = {
+      projectTitle : 'test2',
+      projectDescription : 'test',
+      projectClient : 'test',
+      projectDiscipline : 'test',
+      projectCollaborator : 'test',
+      projectYear : 2015,
+      projectDetails : 'test',
+      projectUrl : 'test',
+      projectImageUrl : 'test'
+    };
 
-      var time = new Date();
-      time = time.toUTCString().split(' ');
-      year = time[3];
-      time = time.splice(0,4);
-      time = time.join('~');
-
-      var project = {
-        title : 'ProjectShak',
-        projectDetails: {
-          client : 'joe',
-          discipline : 'identity',
-          collaborators : 'joe',
-          year : year,
-          time : time,
-          details : 'lorem ipsum',
-          specs: 'www.google.com',
-          fileName :'ProjectShak-'+'Discipline-'+time
-        }
-      }
-
-      var project2 = {
-        title : 'ProjectShak',
-        projectDetails: {
-          client : 'joe Daddy',
-          discipline : 'identity',
-          collaborators : 'joe',
-          year : year,
-          time : time,
-          details : 'lorem ipsum',
-          specs: 'www.google.com',
-          fileName :'ProjectShak-'+'Discipline-'+time
-        }
-      }
-
-      var category = 'projects';
 
     it('should add project details to the database', function (done) {
-      var projectStr = JSON.stringify(project.projectDetails);
-      projectCtrl.saveToDb(category, project);
-      projectCtrl.getFromDb(category, project.title, function(projectDb){
-        if(!!projectDb){
-          expect(projectDb).to.equal(projectStr);
-          done();
-        } else {
-          console.log('redis didnt work');
-          expect(true).to.equal(false);
-          done();
-        }
-      })
+      projectCtrl.saveToDb(project1, function(err, newProj){
+        projectCtrl.getProjectFromDb(newProj._id, function(err, fetchedProj){
+          if(!err){
+            expect(JSON.stringify(fetchedProj.project)).to.equal(JSON.stringify(newProj.project));
+            done();
+          } else {
+            console.log('db failed to get work');
+            expect(true).to.equal(false);
+            done();
+          }
+        });
+      });
     });
 
     it('should overwrite existing projects', function (done) {
-      var initialProject = JSON.stringify(project.projectDetails);
-      var overwrittenProject = JSON.stringify(project2.projectDetails);
-      projectCtrl.saveToDb(category, project);
-      projectCtrl.saveToDb(category, project2);
-      projectCtrl.getFromDb(category, project.title, function(projectDb){
-        if(!!projectDb){
-          expect(projectDb).to.equal(overwrittenProject);
-          done();
-        } else {
-          console.log('redis didnt work');
-          expect(true).to.equal(false);
-          done();
-        }
-      })
-    });
-
-    it('should delete project', function (done) {
-      var projectStr = JSON.stringify(project.projectDetails);
-      projectCtrl.deleleDb();
-      projectCtrl.saveToDb(category, project);
-      projectCtrl.getFromDb(category, project.title, function(projectDb){
-        if(!!projectDb){
-          expect(projectDb).to.equal(projectStr);
-          projectCtrl.deleteFromDb(category, project.title);
-          projectCtrl.getFromDb(category, project.title, function(projectDb){
-            if(!!projectDb){
-              expect(true).to.equal(false);
+      projectCtrl.saveToDb(project1, function(err, newProj){
+        projectCtrl.editProjectDb(newProj._id, project2,  function(err, editedProj){
+          projectCtrl.getProjectFromDb(newProj._id, function(err, fetchedProj){
+            if(!err){
+              console.log(fetchedProj);
+              console.log(err);
+              expect(fetchedProj.project.projectTitle).to.equal(project2.projectTitle);
+              expect(fetchedProj.project.projectTitle).to.not.equal(project1.projectTitle);
               done();
             } else {
-              expect(projectDb).to.equal(null);
+              console.log('db failed to get work');
+              expect(true).to.equal(false);
               done();
             }
-          })
-        } else {
-          console.log('redis didnt work');
-          expect(true).to.equal(false);
-          done();
-        }
-      })
-
+          });
+        });
+      });
     });
 
-    });
-
-describe('project + project image saved to both filesystem and database', function () {
-
-  xit('each project in the database should have an image in the filesystem', function (done) {
-
   });
-
-  xit('each image in the filesystem should have a project in the database', function (done) {
-
-  });
-
-
-});
-
-});
-
-
-
 
 });

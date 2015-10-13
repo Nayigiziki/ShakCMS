@@ -53,9 +53,7 @@ angular.module('shakApp.addProject', [])
     $scope.uploadImgToCloudinary = function(){
       console.log('click');
       if(data.file) {
-        var timeStamp = new Date();
-        timeStamp = timeStamp.toString();
-        var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
+        var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline;
         Cloudinary.upload(data.file, uploadTitle)
           .then(function (response) {
             console.log(response);

@@ -2,7 +2,7 @@ angular.module('shakApp.editProject', [])
 .controller('editProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
-
+    console.log($stateParams.project);
     console.log('edit ctrl');
     if(!$stateParams.project){
       $state.go('listProjects');
@@ -19,34 +19,56 @@ angular.module('shakApp.editProject', [])
         projectYear : project.projectYear,
         projectDetails : project.projectDetails,
         projectUrl : project.projectUrl,
-        projectImageUrl : project.projectImageUrl
+        projectImageUrl : project.projectImageUrl,
+        projectID : $stateParams.project._id
       };
 
       $scope.data = data;
 
-      $scope.createProject = function(){
-        console.log('creating project');
+  
+        var image = new Image();
+        image.setAttribute('crossOrigin', 'anonymous');
 
-        var project = {
-          projectTitle : $scope.data.projectTitle,
-          projectDescription : $scope.data.projectDescription,
-          projectClient : $scope.data.projectClient,
-          projectDiscipline : $scope.data.projectDiscipline,
-          projectCollaborator : $scope.data.projectCollaborator,
-          projectYear : $scope.data.projectYear,
-          projectDetails : $scope.data.projectDetails,
-          projectUrl : $scope.data.projectUrl,
-          projectImageUrl : $scope.data.projectImageUrl
+        image.onload = function () {
+          var canvas = document.createElement('canvas');
+          canvas.width = this.naturalWidth; 
+          canvas.height = this.naturalHeight; 
+          canvas.getContext('2d').drawImage(this, 0, 0);
+          $scope.data.file = canvas.toDataURL('image/png');
+        };
+
+        image.src = project.projectImageUrl;
+
+
+
+
+      $scope.editProject = function(){
+        console.log('editing project');
+
+        var obj = {
+          id : data.projectID,
+          project: {
+            projectTitle : $scope.data.projectTitle,
+            projectDescription : $scope.data.projectDescription,
+            projectClient : $scope.data.projectClient,
+            projectDiscipline : $scope.data.projectDiscipline,
+            projectCollaborator : $scope.data.projectCollaborator,
+            projectYear : $scope.data.projectYear,
+            projectDetails : $scope.data.projectDetails,
+            projectUrl : $scope.data.projectUrl,
+            projectImageUrl : $scope.data.projectImageUrl
+          }
         }
 
-        Server.post('createProject', project)
+        Server.post('editProject', obj)
         .then(function(response){
           console.log(response);
-          toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Created!', {allowHtml: true});
+          toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Updated!', {allowHtml: true});
           // toastr.success('Project Created');
+          $scope.createProjectStatus = 'Edit project';
         }, function(err){
           console.log('error ', err);
-          toastr.success('Project failed to load');
+          toastr.success('Project failed to update');
         })
       }
 
@@ -56,18 +78,17 @@ angular.module('shakApp.editProject', [])
         console.log('err ', errFiles);
       }
 
-      $scope.uploadImgToCloudinary = function(){
+      $scope.uploadImgToCloudinary = function(id){
         console.log('click');
         if(data.file) {
           var timeStamp = new Date();
-          timeStamp = timeStamp.toString();
+          timeStamp =  timeStamp.toString();
           var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
-          Cloudinary.upload(data.file, uploadTitle)
+          Cloudinary.upload($scope.data.file, uploadTitle)
           .then(function (response) {
             console.log(response);
             $scope.data.projectImageUrl = response.data.secure_url;
-            $scope.createProjectStatus = 'Create project';
-            $scope.createProject();
+            $scope.editProject();
           }, function (response) {
             console.log('Error status: ' + response.status);
             $scope.createProjectStatus = 'Image upload Error, please try again';
@@ -79,7 +100,6 @@ angular.module('shakApp.editProject', [])
           });
         }
       }
-
     }
 
 
@@ -91,7 +111,7 @@ angular.module('shakApp.editProject', [])
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        scope.data.image = e.target.result;    
+        scope.data.projectImageUrl = e.target.result;    
         scope.$apply();
       }
 

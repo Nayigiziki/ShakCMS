@@ -28,7 +28,23 @@ var setup = function(app) {
         res.status(200).json({status: 'successfully fetched the from the db', projects: data});
       }
     })
+  });
+
+  //delete projects
+
+  //update projects
+  app.post('/api/editProject', function(req, res, next){
+    db.editProjectDb(req.body.id, req.body.project, function(err, editedProject){
+      if(!err){
+        console.log('edited Project ', editedProject);
+        res.status(200).json({status: 'successfully updated project', project: editedProject})
+      } else {
+        console.log('err ', err);
+        res.status(200).json({status: 'unsuccessfully updated project', err: err})
+      }
+    })
   })
+
 
   //default response
   app.get('*', function(req, res) {

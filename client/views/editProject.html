@@ -16,8 +16,6 @@
 </div>
 
 
-edit
-
 <div class='projectDescriptionContainer'>
   <div ng-init='editProjectDescription = false;' >
     <div ng-show='!editProjectDescription' ng-click='editProjectDescription = !editProjectDescription' class='projectDescription'>{{data.projectDescription}}</div>
@@ -62,8 +60,7 @@ edit
 
             
             <div class='submitContainer'>
-              <button ng-init='createProjectStatus = "Create Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
-
+              <button ng-init='createProjectStatus = "Edit Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
             </div>
 
             <div class='rectContainer'>

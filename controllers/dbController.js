@@ -3,70 +3,55 @@ var ProjectModel = require('../db/db').projectModel;
 
 
 var saveToDb = function(project, cb){
-
   var newProject = new ProjectModel({project: project});
-  
   newProject.save(function(err, newProj){
     if(err){
       console.log('err ' , err);
     } else {
-      console.log('successfully saved Project ', newProj);
+      console.log('successfully saved Project ');
     }
     cb(err, newProj);
   })
 }
 
-var getFromDb = function(projectTitle, cb){
-  ProjectModel.findOne({ projectTitle: projectTitle }, function (err, proj) {
+var getProjectFromDb = function(id, cb){
+  ProjectModel.findOne({ _id: id }, function (err, proj) {
     if (err) {
       console.log('err ', err);
-      cb(false);
     } else {
-      console.log('user find result ', proj);
-      cb(proj);
+      console.log('found project');
+      console.log(proj);
+    }
+    cb(err, proj);
+  })
+}
+
+var getAllProjectsFromDB = function(cb){
+  ProjectModel.find({}, function (err, projs) {
+    if (err) {
+      console.log('err ', err);
+      cb(false)
+    } else {
+      console.log('user find result ', projs);
+      cb(projs);
     }
   })
 }
 
-
-var editDb = function(id, projectObj, cb){
+var editProjectDb = function(id, projectObj, cb){
   ProjectModel.update({ _id: id }, { $set: { project: projectObj}}, function(err, proj){
     if(err){
       console.log('err ' , err);
     } else {
-      console.log('successfully saved Project ', proj);
+      console.log('successfully edited Project ');
     }
     cb(err, proj);
   });
 }
 
-var getFromDb = function(projectTitle, cb){
-  ProjectModel.find({}, function (err, proj) {
-    if (err) {
-      console.log('err ', err);
-      cb(false);
-    } else {
-      console.log('user find result ', proj);
-      cb(proj);
-    }
-  })
-}
 
-var getAllProjectsFromDB = function(cb){
-  ProjectModel.find({}, function (err, proj) {
-    if (err) {
-      console.log('err ', err);
-      cb(false)
-    } else {
-      console.log('user find result ', proj);
-      cb(proj);
-    }
-  })
-  
-}
-
-var deleteFromDb = function(category, projectTitle){
-  ProjectModel.findOne({ projectTitle: projectTitle }).remove(function(err, obj){
+var deleteProjectFromDb = function(_id, cb){
+  ProjectModel.findOne({ _id: id }).remove(function(err, obj){
     if(err){
       console.log('err ', err);
     } else {
@@ -75,17 +60,23 @@ var deleteFromDb = function(category, projectTitle){
   })
 }
 
-var deleleDb = function(){
-  // redis.flushall();
+var deleteAllProjectsFromDb = function(cb){
+  ProjectModel.remove(function(err, obj){
+    if(err){
+      console.log('err ', err);
+    } else {
+      console.log('success');
+    }
+    cb(err, obj);
+  })
 }
 
 module.exports = {
   saveToDb : saveToDb,
-  getFromDb : getFromDb,
-  deleteFromDb : deleteFromDb,
-  deleleDb : deleleDb,
-  getAllProjectsFromDB : getAllProjectsFromDB
+  getProjectFromDb : getProjectFromDb,
+  getAllProjectsFromDB : getAllProjectsFromDB,
+  editProjectDb : editProjectDb,
+  deleteProjectFromDb : deleteProjectFromDb,
+  deleteAllProjectsFromDb : deleteAllProjectsFromDb
 };
-
-
 
