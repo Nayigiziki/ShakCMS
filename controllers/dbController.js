@@ -32,7 +32,7 @@ var getAllProjectsFromDB = function(cb){
       console.log('err ', err);
       cb(false)
     } else {
-      console.log('user find result ', projs);
+      console.log('found project results ', projs);
       cb(projs);
     }
   })

@@ -26,18 +26,18 @@ angular.module('shakApp.editProject', [])
       $scope.data = data;
 
   
-        var image = new Image();
-        image.setAttribute('crossOrigin', 'anonymous');
+      var image = new Image();
+      image.setAttribute('crossOrigin', 'anonymous');
 
-        image.onload = function () {
-          var canvas = document.createElement('canvas');
-          canvas.width = this.naturalWidth; 
-          canvas.height = this.naturalHeight; 
-          canvas.getContext('2d').drawImage(this, 0, 0);
-          $scope.data.file = canvas.toDataURL('image/png');
-        };
+      image.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = this.naturalWidth; 
+        canvas.height = this.naturalHeight; 
+        canvas.getContext('2d').drawImage(this, 0, 0);
+        $scope.data.file = canvas.toDataURL('image/png');
+      };
 
-        image.src = project.projectImageUrl;
+      image.src = project.projectImageUrl;
 
 
       $scope.deleteProject = function(){
