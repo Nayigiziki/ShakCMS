@@ -1,5 +1,5 @@
-angular.module('shakApp.dashboard', [])
-  .controller('dashboardController', function($scope, Server, $state){
+angular.module('shakApp.landingPage', [])
+  .controller('landingPageController', function($scope, Server, $state, toastr){
     var data = {};
 
     $scope.logout = function(){
@@ -11,5 +11,6 @@ angular.module('shakApp.dashboard', [])
         }   
       })
     }
-    $state.go('landingPage');
+
+    toastr.success('Welcome to shakeil.com');
   });

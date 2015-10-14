@@ -14,19 +14,23 @@
   </span>
 </div>
 <div class='rectContainer'>
+  <img class='prevImg' ng-src="{{prevProject.src}}">
 <svg class='svgLeft'>
   <g>
   <rect class='rectLeft'/>
-  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
+  <text font-family="Superspitze Grotesk" fill="white" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
   </g>
 </svg>
+
+
 <svg class='svgLine'>
   <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
 </svg>
+  <img class='nextImg' ng-src="{{nextProject.src}}">
 <svg class='svgRight'>
   <g>
   <rect class='rectRight'/>
-  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>
+  <text font-family="Superspitze Grotesk" fill="white" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>
   </g>
 </svg>
 </div>

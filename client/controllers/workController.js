@@ -7,14 +7,8 @@ angular.module('shakApp.work', [])
 
 
     $scope.show = function(discipline){
-      var obj = {
-        'all' : [],
-        'identity' : [],
-        'interactive' : [],
-        'print' : [],
-        'direction' : [],
-      }
-      //set obj[discipline value] to ngRepeat scope variable
+      var tempProjectsObj  = State.getProjObj();
+      $scope.projects = tempProjectsObj[discipline];
     }
 
     $scope.goToProj = function(project, key){

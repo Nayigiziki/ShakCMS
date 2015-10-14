@@ -14,6 +14,12 @@ angular.module('shakApp.listProjects', [])
   }
 
 
+  $scope.show = function(discipline){
+    var tempProjectsObj  = State.getProjObj();
+    $scope.projects = tempProjectsObj[discipline];
+    
+  }
+
   $scope.goToProj = function(project, key){
     var largestIndex = $scope.projects.length - 1;
     var prevKey, nextKey;

@@ -9,11 +9,13 @@ var myApp = angular.module('shakApp',
   'shakApp.project',
   'shakApp.listProjects', 
   'shakApp.editProject', 
+  'shakApp.landingPage',
   'ngFileUpload',
   'toastr'
   ])
 .config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 
+  $urlRouterProvider.otherwise('/dashboard');
 
   $stateProvider
   .state('login', {
@@ -66,6 +68,18 @@ var myApp = angular.module('shakApp',
       nextProject : null,
     }
   })
+  .state('listProjects', {
+    parent: 'dashboard',
+    url: '/listProjects',
+    templateUrl: 'views/listProjects.html',
+    controller : 'listProjectsController'
+  })
+  .state('landingPage', {
+    parent: 'dashboard',
+    url: '/landingPage',
+    templateUrl: 'views/landingPage.html',
+    controller : 'landingPageController'
+  })
   .state('about', {
     parent: 'dashboard',
     url: '/about',
@@ -75,12 +89,6 @@ var myApp = angular.module('shakApp',
     parent: 'dashboard',
     url: '/contact',
     templateUrl: 'views/contact.html'
-  })
-  .state('listProjects', {
-    parent: 'dashboard',
-    url: '/listProjects',
-    templateUrl: 'views/listProjects.html',
-    controller : 'listProjectsController'
   })
 
   angular.extend(toastrConfig, {
@@ -187,15 +195,34 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('State', function($http, $state, Server){
-  var projects = {};
+  var projects = {
+    data : null,
+    identity : [],
+    interactive : [],
+    print : [],
+    direction : []
+  };
   var timestamp = null;
+
+  var sortDisciplines = function(){
+    projects.identity = [];
+    projects.interactive = [];
+    projects.print = [];
+    projects.direction = [];    
+    _.each(projects.data, function(element, index){
+        projects[element.project.projectDiscipline].push(element);
+    });
+    console.log('sorted projects ', projects);
+  }
+
   var getProjects =  function(){
     Server.get('projects').then(function(dbProjects){
       timeStamp =  Date.now();
       projects.data = dbProjects.data.projects;
+      sortDisciplines();
     }, function(err){
       console.log(err);
-    })
+    });
   }
 
   var getProjObj = function(){
@@ -208,13 +235,23 @@ var myApp = angular.module('shakApp',
   }
 
 })
+.directive('autofocus', ['$timeout', function($timeout) {
+  return {
+    restrict: 'A',
+    link : function($scope, $element) {
+      $timeout(function() {
+        $element[0].focus();
+      });
+    }
+  }
+}])
 .run(function(Auth, $state, $rootScope, State){
   State.getProjects();
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     var protectedViews = Auth.getProtectedViews();
+    State.getProjects();
     console.log('protected state state transition ', toState.name === protectedViews[toState.name]);
-
     if(toState.name === protectedViews[toState.name]){
       Auth.isAuth()
       .then(function(response){
