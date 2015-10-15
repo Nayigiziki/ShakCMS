@@ -17,12 +17,23 @@ angular.module('shakApp.project', [])
         projectUrl : project.projectUrl,
         projectDiscipline : project.projectDiscipline,
         projectYear: project.projectYear,
-        nextProject : nextProject,
-        prevProject : prevProject
+        nextProject : $stateParams.nextproject,
+        prevProject : $stateParams.prevProject
       };
       //add transition
-      console.log($stateParams);
+      console.log('stateParams ', $stateParams);
       $scope.data = data;
+    }
+
+    $scope.transformImage = function(str){
+      var transformStr = '/upload/w_342,h_204/'
+      console.log(str);
+      // str = str.project.projectImageUrl;
+      return str[0] + transformStr + str[1];
+    }
+
+    $scope.goToNextProj = function(){
+
     }
     
   });

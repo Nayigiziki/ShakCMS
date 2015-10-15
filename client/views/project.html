@@ -14,7 +14,7 @@
   </span>
 </div>
 <div class='rectContainer'>
-  <img class='prevImg' ng-src="{{prevProject.src}}">
+  <img class='prevImg' ng-src="{{transformImage(data.prevProject)}}">
 <svg class='svgLeft'>
   <g>
   <rect class='rectLeft'/>
@@ -26,7 +26,7 @@
 <svg class='svgLine'>
   <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
 </svg>
-  <img class='nextImg' ng-src="{{nextProject.src}}">
+  <img class='nextImg' ng-src="{{transformImage(data.nextProject.projectImageUrl)}}">
 <svg class='svgRight'>
   <g>
   <rect class='rectRight'/>

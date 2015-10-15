@@ -107,6 +107,23 @@ body {
   justify-content : center;
 }
 
+.imgContainerLanding {
+  display: flex;
+  margin-left: 30px;
+  margin-right: 30px;
+  justify-content : center;
+  flex-direction : column;
+}
+
+.imgLanding {
+  display: flex;
+  margin-left: 30px;
+  margin-right: 30px;
+  justify-content : center;
+  flex-direction : column;
+  align-self: center;
+}
+
 .imgContainer:hover {
   cursor:pointer;
 }
