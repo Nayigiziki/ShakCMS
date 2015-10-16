@@ -55,7 +55,6 @@ var myApp = angular.module('shakApp',
     url: '/work',
     templateUrl: 'views/work.html',
     controller : 'workController' 
-
   })
   .state('project', {
     parent: 'dashboard',
@@ -63,9 +62,11 @@ var myApp = angular.module('shakApp',
     templateUrl: 'views/project.html',
     controller : 'projectController',
     params : {
-      project: null,
-      prevProject : null,
-      nextProject : null,
+      projectKey: null,
+      prevProjectKey : null,
+      nextProjectKey : null,
+      largestKey: null,
+      discipline : null
     }
   })
   .state('listProjects', {
@@ -202,13 +203,9 @@ var myApp = angular.module('shakApp',
     print : [],
     direction : []
   };
-  var timestamp = null;
 
-  var sortDisciplines = function(){
-    projects.identity = [];
-    projects.interactive = [];
-    projects.print = [];
-    projects.direction = [];    
+
+  var sortDisciplines = function(){  
     _.each(projects.data, function(element, index){
         projects[element.project.projectDiscipline].push(element);
     });
@@ -247,10 +244,8 @@ var myApp = angular.module('shakApp',
 }])
 .run(function(Auth, $state, $rootScope, State){
   State.getProjects();
-
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     var protectedViews = Auth.getProtectedViews();
-    State.getProjects();
     console.log('protected state state transition ', toState.name === protectedViews[toState.name]);
     if(toState.name === protectedViews[toState.name]){
       Auth.isAuth()

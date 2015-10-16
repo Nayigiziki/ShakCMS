@@ -1,17 +1,19 @@
 angular.module('shakApp.work', [])
   .controller('workController', function($scope, Server, $state, State){
-    var data = {};
+    var data = {
+      discipline : 'data'
+    };
+    var projectObj =  State.getProjObj();
     $scope.projects =  State.getProjObj().data;
-    var largestIndex = $scope.projects.length - 1;
-
-
 
     $scope.show = function(discipline){
       var tempProjectsObj  = State.getProjObj();
       $scope.projects = tempProjectsObj[discipline];
+      data.discipline = discipline;
     }
 
-    $scope.goToProj = function(project, key){
+    $scope.goToProj = function(key){
+      var largestIndex = projectObj[data.discipline].length - 1;
       var prevKey, nextKey;
 
       if(key === 0){
@@ -25,11 +27,12 @@ angular.module('shakApp.work', [])
         nextKey = key + 1;
       }
 
-
       $state.transitionTo('project', {
-        project: project, 
-        prevProject : $scope.projects[prevKey],
-        nextProject : $scope.projects[nextKey]
+        projectKey: key, 
+        prevProjectKey : prevKey,
+        nextProjectKey : nextKey,
+        largestKey : largestIndex,
+        discipline : data.discipline
       });
     }
 

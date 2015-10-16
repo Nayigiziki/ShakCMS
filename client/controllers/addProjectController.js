@@ -37,7 +37,6 @@ angular.module('shakApp.addProject', [])
         .then(function(response){
           console.log(response);
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Created!', {allowHtml: true});
-          State.getProjects();
           $scope.createProjectStatus = 'Project Created';
           $timeout(function(){
             $state.go('work');

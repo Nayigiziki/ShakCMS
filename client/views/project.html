@@ -1,6 +1,6 @@
 <div class='projectTitleTextContainer'>{{data.projectTitle}}</div>
 <div class='projectImgContainer'>
-<img class='projectImg' src="{{data.image}}">
+<img class='projectImg' src="{{data.projectImageUrl}}">
 </div>
 <div class='projectDescriptionContainer'>
   <span class='projectDescription'>{{data.projectDescription}}</span>
@@ -14,20 +14,19 @@
   </span>
 </div>
 <div class='rectContainer'>
-  <img class='prevImg' ng-src="{{transformImage(data.prevProject)}}">
-<svg class='svgLeft'>
+  <img class='prevImg' ng-src="{{transformImage(data.prevProject.projectImageUrl)}}" >
+<svg class='svgLeft' ng-click='goToPrevProj()'>
   <g>
   <rect class='rectLeft'/>
   <text font-family="Superspitze Grotesk" fill="white" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
   </g>
 </svg>
 
-
-<svg class='svgLine'>
+<svg class='svgLine' >
   <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
 </svg>
-  <img class='nextImg' ng-src="{{transformImage(data.nextProject.projectImageUrl)}}">
-<svg class='svgRight'>
+  <img class='nextImg' ng-src="{{transformImage(data.nextProject.projectImageUrl)}}" >
+<svg class='svgRight' ng-click='goToNextProj()'>
   <g>
   <rect class='rectRight'/>
   <text font-family="Superspitze Grotesk" fill="white" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>

@@ -42,7 +42,6 @@ angular.module('shakApp.editProject', [])
 
       $scope.deleteProject = function(){
         Server.post('deleteProject', {id: data.projectID}).then(function(response){
-          State.getProjects();
           console.log('response ', response);
           $scope.deleteProjectStatus = 'Project Deleted';
           toastr.success('have a good day','Successfully deleted the project');
@@ -77,7 +76,6 @@ angular.module('shakApp.editProject', [])
         .then(function(response){
           console.log(response);
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Updated!', {allowHtml: true});
-          State.getProjects();
           $scope.editProjectStatus = 'Project Edited';
           $timeout(function(){
             $state.go('work');
