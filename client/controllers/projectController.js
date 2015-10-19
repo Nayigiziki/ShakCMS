@@ -37,23 +37,29 @@ angular.module('shakApp.project', [])
     var generateKeys = function(key, largestIndex, direction){
       var prevKey, nextKey;
       if(direction ==='next'){
-        if(key === 0){
+        if(key === 0 && key !== largestIndex){
           prevKey = largestIndex;
           nextKey = key + 1;
-        } else if(key === largestIndex){
+        } else if(key === largestIndex && key !== 0){
           prevKey = key - 1;
+          nextKey = 0;
+        } else if(key === 0 && key === largestIndex){
+          prevKey = 0;
           nextKey = 0;
         } else {
           prevKey =  key - 1;
           nextKey = key + 1;
         }
       } else {
-        if(key === largestIndex){
+        if(key === largestIndex && key !== 0){
           prevKey = largestIndex - 1;
           nextKey = 0;
-        } else if(key === 0){
+        } else if(key === 0 && key !== largestIndex){
           prevKey = largestIndex;
           nextKey = 1;
+        } else if(key === 0 && key === largestIndex){
+          prevKey = 0;
+          nextKey = 0;
         } else {
           prevKey =  key - 1;
           nextKey = key + 1;

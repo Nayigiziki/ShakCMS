@@ -58,6 +58,19 @@ var setup = function(app) {
     });
   });
 
+  //edit/create contact data
+  app.post('/api/contact', function(req, res, next){
+    db.editProjectDb(req.body.id, req.body.project, function(err, editedProject){
+      if(!err){
+        console.log('edited Project ', editedProject);
+        res.status(200).json({status: 'successfully updated project', project: editedProject})
+      } else {
+        console.log('err ', err);
+        res.status(400).json({status: 'unsuccessfully updated project', err: err})
+      }
+    });
+  });
+
 
 
   //default response

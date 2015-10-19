@@ -16,12 +16,15 @@ angular.module('shakApp.work', [])
       var largestIndex = projectObj[data.discipline].length - 1;
       var prevKey, nextKey;
 
-      if(key === 0){
+      if(key === 0 && key !== largestIndex){
         prevKey = largestIndex;
         nextKey = key + 1;
-      } else if(key === largestIndex){
+      } else if(key === largestIndex && key !== 0){
         prevKey = key - 1;
-        nextKey = 0
+        nextKey = 0;
+      } else if(key === 0 && key === largestIndex){
+        prevKey = 0;
+        nextKey = 0;
       } else {
         prevKey =  key - 1;
         nextKey = key + 1;
