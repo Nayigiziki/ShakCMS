@@ -46,7 +46,7 @@ angular.module('shakApp.editProject', [])
           $scope.deleteProjectStatus = 'Project Deleted';
           toastr.success('have a good day','Successfully deleted the project');
           $timeout(function(){
-            $state.go('work');
+            $state.go('listProjects');
           }, 1500);
         }, function(err){
           console.log('err ', err);
@@ -78,7 +78,7 @@ angular.module('shakApp.editProject', [])
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Updated!', {allowHtml: true});
           $scope.editProjectStatus = 'Project Edited';
           $timeout(function(){
-            $state.go('work');
+            $state.go('listProjects');
           }, 1500);
           
         }, function(err){

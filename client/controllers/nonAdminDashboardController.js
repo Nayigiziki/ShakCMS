@@ -1,5 +1,5 @@
-angular.module('shakApp.dashboard', [])
-  .controller('dashboardController', function($scope, Server, $state){
+angular.module('shakApp.nonAdminDashboard', [])
+  .controller('nonAdminDashboardController', function($scope, Server, $state){
     var data = {};
 
     $scope.logout = function(){
@@ -12,5 +12,5 @@ angular.module('shakApp.dashboard', [])
       })
     }
     
-    $state.go('addProject');
+    $state.go('landingPage');
   });

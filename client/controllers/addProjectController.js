@@ -39,7 +39,7 @@ angular.module('shakApp.addProject', [])
           toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Created!', {allowHtml: true});
           $scope.createProjectStatus = 'Project Created';
           $timeout(function(){
-            $state.go('work');
+            $state.go('listProjects');
           }, 1500);
         }, function(err){
           console.log('error ', err);

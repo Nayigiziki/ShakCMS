@@ -11,12 +11,13 @@ var myApp = angular.module('shakApp',
   'shakApp.editProject', 
   'shakApp.landingPage',
   'shakApp.aboutContact',
+  'shakApp.nonAdminDashboard',
   'ngFileUpload',
   'toastr'
   ])
 .config(function($stateProvider, $urlRouterProvider, toastrConfig) {
 
-  $urlRouterProvider.otherwise('/dashboard');
+  $urlRouterProvider.otherwise('/nonAdminDashboard');
 
   $stateProvider
   .state('login', {
@@ -33,6 +34,11 @@ var myApp = angular.module('shakApp',
     url: '/dashboard',
     templateUrl: 'views/dashboard.html',
     controller : 'dashboardController'
+  })
+  .state('nonAdminDashboard', {
+    url: '/nonAdminDashboard',
+    templateUrl: 'views/nonAdminDashboard.html',
+    controller : 'nonAdminDashboardController'
   })
   .state('addProject', {
     parent: 'dashboard',
@@ -52,13 +58,13 @@ var myApp = angular.module('shakApp',
     }
   })
   .state('work', {
-    parent: 'dashboard',
+    parent: 'nonAdminDashboard',
     url: '/work',
     templateUrl: 'views/work.html',
     controller : 'workController' 
   })
   .state('project', {
-    parent: 'dashboard',
+    parent: 'nonAdminDashboard',
     url: '/project',
     templateUrl: 'views/project.html',
     controller : 'projectController',
@@ -77,19 +83,19 @@ var myApp = angular.module('shakApp',
     controller : 'listProjectsController'
   })
   .state('landingPage', {
-    parent: 'dashboard',
+    parent: 'nonAdminDashboard',
     url: '/landingPage',
     templateUrl: 'views/landingPage.html',
     controller : 'landingPageController'
   })
   .state('about', {
-    parent: 'dashboard',
+    parent: 'nonAdminDashboard',
     url: '/about',
     templateUrl: 'views/about.html',
     controller : 'aboutContactController'
   })
   .state('contact', {
-    parent: 'dashboard',
+    parent: 'nonAdminDashboard',
     url: '/contact',
     templateUrl: 'views/contact.html',
     controller : 'aboutContactController'
@@ -193,7 +199,6 @@ var myApp = angular.module('shakApp',
     })
   }
 
-
   return {
     upload : upload
   }
@@ -251,6 +256,7 @@ var myApp = angular.module('shakApp',
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     var protectedViews = Auth.getProtectedViews();
     console.log('protected state state transition ', toState.name === protectedViews[toState.name]);
+    
     if(toState.name === protectedViews[toState.name]){
       Auth.isAuth()
       .then(function(response){
@@ -264,6 +270,7 @@ var myApp = angular.module('shakApp',
         $state.go('login');
       })
     }
+
   })
 
 });
