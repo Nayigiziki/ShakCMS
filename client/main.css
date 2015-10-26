@@ -171,6 +171,10 @@ body {
   max-width: 1600px;
 }
 
+.projectImg:hover {
+  cursor:pointer;
+}
+
 .projectTitleTextContainer {
   display: flex;
   font-family: 'Superspitze Grotesk';
