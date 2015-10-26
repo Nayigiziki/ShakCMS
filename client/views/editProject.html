@@ -8,7 +8,7 @@
 </div>
 
 <div class='projectImgContainer'>
-  <img  class='projectImg' src="{{data.projectImageUrl}}">
+  <img  shak-carousel-project='{{data.projectImageUrls}}' class='projectImg' src="{{data.projectImageUrl}}">
   <input type="file"  my-upload ngf-select="uploadFiles($file, $invalidFiles)"
   accept="image/*"></input>
 

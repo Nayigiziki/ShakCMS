@@ -1,0 +1,8 @@
+<div ng-init='editContact = false;'>
+  <div ng-show='!editContact' ng-click='editContact = true'>{{data.contact}}</div>
+  <textarea ng-show='editContact' ng-model='data.contact' ng-dblClick='editContact = false'>
+</div>
+
+<div class='submitContainer'>
+  <button class='inputTitleEditBtn' ng-click='saveToDb()'></button>
+</div>

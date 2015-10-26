@@ -1,0 +1,23 @@
+<div class='aboutDescriptionContainer'>
+  <span class='aboutTitles'>
+    <a ng-repeat='(key, val) in data.links' ng-href="{{val}}">{{key}}</a>
+    <input type='text' placeholder='Text' ng-model='data.text'>
+    <input type='text' placeholder='link' ng-model='data.link'>
+    <button class='inputTitleEditBtn' ng-click='createLink()'>create link</button>
+    <br>
+    <div>Web Design: Shakeil Greeley</div>
+    <div>Web Development: Joseph Nayigiziki</div>
+    <br>
+    <div>Works may not be used for any commercial purposes or any other purposes without permission. All images are protected under the United States and international Copyright laws. The images may not be reproduced, copied, transmitted or manipulated without the written permission of Shakeil Greeley.
+    </div>
+  </span>
+  <span class='aboutDescription' ng-init='editAboutDescription = false;'>
+    <div ng-show='!editAboutDescription' ng-click='editAboutDescription = !editAboutDescription' class='projectDescription'>{{data.aboutDescription}}</div>
+    <div ng-show='editAboutDescription' >    
+      <textarea ng-model="data.aboutDescription" class='inputAboutDescriptionEdit' ng-dblClick="editAboutDescription = false;"></textarea>
+    </div>
+
+
+</span>
+
+</div>

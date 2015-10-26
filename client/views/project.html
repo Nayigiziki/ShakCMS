@@ -1,6 +1,6 @@
 <div class='projectTitleTextContainer'>{{data.projectTitle}}</div>
 <div class='projectImgContainer'>
-<img class='projectImg' src="{{data.projectImageUrl}}">
+<img shak-carousel-project='{{data.projectImageUrls}}' class='projectImg' src="{{data.projectImageUrl}}">
 </div>
 <div class='projectDescriptionContainer'>
   <span class='projectDescription'>{{data.projectDescription}}</span>
@@ -14,7 +14,7 @@
   </span>
 </div>
 <div class='rectContainer'>
-  <img class='prevImg' ng-src="{{transformImage(data.prevProject.projectImageUrl)}}" >
+  <img class='prevImg' ng-src="{{transformImage(data.prevProject.projectImageUrls[0])}}" >
 <svg class='svgLeft' ng-click='goToPrevProj()'>
   <g>
   <rect class='rectLeft'/>
@@ -24,7 +24,7 @@
 <svg class='svgLine' >
   <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
 </svg>
-  <img class='nextImg' ng-src="{{transformImage(data.nextProject.projectImageUrl)}}" >
+  <img class='nextImg' ng-src="{{transformImage(data.nextProject.projectImageUrls[0])}}" >
 <svg class='svgRight' ng-click='goToNextProj()'>
   <g>
   <rect class='rectRight'/>

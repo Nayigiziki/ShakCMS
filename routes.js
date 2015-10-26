@@ -22,7 +22,7 @@ var setup = function(app) {
 
   //create project
   app.post('/api/createProject', authentication.isAuth, function(req, res, next){
-    var projectObj = req.body;;
+    var projectObj = req.body;
     db.saveToDb(projectObj, function(err, createdProj){
       if(!err){
         res.status(201).json({status: 'successfully added project to db', project: createdProj});

@@ -11,7 +11,7 @@ var projectSchema = new Schema({
     projectCreationDate: { type: Date, default: Date.now },
     projectDetails: String, 
     projectUrl: String,
-    projectImageUrl: String
+    projectImageUrls: Array
   }
 });
 var userSchema = new Schema({

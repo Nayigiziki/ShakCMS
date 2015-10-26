@@ -12,5 +12,6 @@ angular.module('shakApp.landingPage', [])
       })
     }
 
-    toastr.success('Welcome to shakeil.com');
+    Materialize.toast('Welcome to shakeil.com', 3000);
+
   });

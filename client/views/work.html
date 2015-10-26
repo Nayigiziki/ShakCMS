@@ -8,7 +8,7 @@
 
 <div class='imgContainer'>
   <span class='overLayContainer' ng-repeat='(key, projectObj) in projects' ng-click='goToProj(key)'>
-    <img class='workImg' ng-src="{{projectObj.project.projectImageUrl}}">
+    <img class='workImg' ng-src="{{projectObj.project.projectImageUrls[0]}}">
     <span align='middle' class='overLay'>{{projectObj.project.projectTitle}}</span>
   </span>
 </div>

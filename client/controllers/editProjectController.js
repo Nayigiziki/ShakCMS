@@ -19,8 +19,9 @@ angular.module('shakApp.editProject', [])
         projectYear : project.projectYear,
         projectDetails : project.projectDetails,
         projectUrl : project.projectUrl,
-        projectImageUrl : project.projectImageUrl,
-        projectID : $stateParams.project._id
+        projectImageUrl : project.projectImageUrls[0],
+        projectID : $stateParams.project._id,
+        projectImageUrls : project.projectImageUrls
       };
 
       $scope.data = data;
@@ -44,7 +45,7 @@ angular.module('shakApp.editProject', [])
         Server.post('deleteProject', {id: data.projectID}).then(function(response){
           console.log('response ', response);
           $scope.deleteProjectStatus = 'Project Deleted';
-          toastr.success('have a good day','Successfully deleted the project');
+          Materialize.toast('Successfully deleted the project', 3000);
           $timeout(function(){
             $state.go('listProjects');
           }, 1500);
@@ -75,7 +76,7 @@ angular.module('shakApp.editProject', [])
         Server.post('editProject', obj)
         .then(function(response){
           console.log(response);
-          toastr.success('<iframe src="//giphy.com/embed/aQDknTwpx32aQ" width="570" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>', 'Project Updated!', {allowHtml: true});
+          Materialize.toast('Project Updated!', 3000);
           $scope.editProjectStatus = 'Project Edited';
           $timeout(function(){
             $state.go('listProjects');
@@ -83,7 +84,7 @@ angular.module('shakApp.editProject', [])
           
         }, function(err){
           console.log('error ', err);
-          toastr.success('Project failed to update');
+          Materialize.toast('Project failed to update', 3000);
         })
       }
 

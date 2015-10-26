@@ -10,14 +10,11 @@ angular.module('shakApp.project', [])
       var project = projects[projectIdentifierInformation.discipline][projectIdentifierInformation.projectKey].project;
       var nextProject = projects[projectIdentifierInformation.discipline][projectIdentifierInformation.nextProjectKey].project;
       var prevProject = projects[projectIdentifierInformation.discipline][projectIdentifierInformation.prevProjectKey].project;
-      // console.log('projects ', projects);
-      // console.log('project identifier info ', projectIdentifierInformation);
-      // console.log('project ', project);
-      // console.log('next ', nextProject);
-      // console.log('prev ', prevProject);
+
 
       var data = {
-        projectImageUrl : project.projectImageUrl,
+        projectImageUrls : project.projectImageUrls,
+        projectImageUrl : project.projectImageUrls[0],
         projectDescription : project.projectDescription,
         projectTitle : project.projectTitle,
         projectClient : project.projectClient,
@@ -29,7 +26,7 @@ angular.module('shakApp.project', [])
         nextProject : nextProject,
         prevProject : prevProject
       };
-
+      console.log(data);
       //add transition
       $scope.data = data;
       // console.log($scope.data);
@@ -117,4 +114,33 @@ angular.module('shakApp.project', [])
     }
   }
 
-  });
+  })
+.directive('shakCarouselProject', ['$timeout', function($timeout){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      console.log('attrs' , attrs);
+      
+      var index = null;
+      elem.on('click', function(){
+        console.log('clicked');
+        var imgUrls = scope.data.projectImageUrls;
+        console.log(imgUrls);
+        
+        if(imgUrls.length > 1){
+          if(index ===  null){
+            index = 1;
+          } else if(!imgUrls[index + 1]) {
+            index = 0;
+          } else {
+            index++;
+          }
+          scope.data.projectImageUrl = imgUrls[index];
+          scope.$apply();
+        }
+
+      })
+
+    }
+  }
+}]);

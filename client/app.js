@@ -12,6 +12,7 @@ var myApp = angular.module('shakApp',
   'shakApp.landingPage',
   'shakApp.aboutContact',
   'shakApp.nonAdminDashboard',
+  'shakApp.editAboutContact',
   'ngFileUpload',
   'toastr'
   ])
@@ -99,6 +100,18 @@ var myApp = angular.module('shakApp',
     url: '/contact',
     templateUrl: 'views/contact.html',
     controller : 'aboutContactController'
+  })
+  .state('editAbout', {
+    parent: 'dashboard',
+    url: '/editAbout',
+    templateUrl: 'views/editAbout.html',
+    controller : 'editAboutContactController'
+  })
+  .state('editContact', {
+    parent: 'dashboard',
+    url: '/editContact',
+    templateUrl: 'views/editContact.html',
+    controller : 'editAboutContactController'
   })
 
   angular.extend(toastrConfig, {
