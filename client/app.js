@@ -218,6 +218,7 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('State', function($http, $state, Server){
+  var viewedProjectOnce = false;
   var projects = {
     data : null,
     identity : [],
@@ -248,9 +249,18 @@ var myApp = angular.module('shakApp',
     return projects;
   }
 
+  var getViewedProjectOnce = function(){
+    var result = viewedProjectOnce;
+    if(!viewedProjectOnce){
+      viewedProjectOnce = true;
+    }
+    return result;
+  }
+
   return {
     getProjects : getProjects,
-    getProjObj : getProjObj
+    getProjObj : getProjObj,
+    getViewedProjectOnce : getViewedProjectOnce
   }
 
 })

@@ -6,6 +6,9 @@ angular.module('shakApp.project', [])
     if(!projectIdentifierInformation.projectKey === null){
         $state.go('work');
     } else {
+      if(!State.getViewedProjectOnce()){
+        Materialize.toast('Click on the image to see more', 3000);
+      }
       var projects = State.getProjObj();
       var project = projects[projectIdentifierInformation.discipline][projectIdentifierInformation.projectKey].project;
       var nextProject = projects[projectIdentifierInformation.discipline][projectIdentifierInformation.nextProjectKey].project;
