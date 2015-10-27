@@ -1,11 +1,6 @@
 <div class='aboutDescriptionContainer'>
   <span class='aboutTitles'>
-    <a href='https://www.dropbox.com/s/n5wnlnudgs1m7hc/s_greeley_resume.pdf?dl=0'>Resumé</a>
-    <a href='https://instagram.com/shakeilg/'>instagram</a>
-    <a href='http://shakeilg.tumblr.com/'>tumblr</a>
-    <a href='https://www.linkedin.com/in/shakeil'>linkedIn</a>
-    <a href="https://soundcloud.com/shakibobo">SoundCloud</a>
-    <a href='https://www.behance.net/shakeil'>Behance</a>
+    <span ng-repeat='(key, link) in data.links'><a ng-href="{{link.url}}">{{link.name}}</a></span>
     <br>
     <div>Web Design: Shakeil Greeley</div>
     <div>Web Development: Joseph Nayigiziki</div>
@@ -13,10 +8,7 @@
     <div>Works may not be used for any commercial purposes or any other purposes without permission. All images are protected under the United States and international Copyright laws. The images may not be reproduced, copied, transmitted or manipulated without the written permission of Shakeil Greeley.
     </div>
   </span>
-  <span class='aboutDescription'> I am the founder and current director of this project, overseeing all areas including research, graphic design, web design, social media presence, and performances. "Trail of Silence is a two-part investigation into the killings of unarmed civilians by police since 2000.
-
-    The first is an independent investigation into the cases of unarmed civilians that have been killed by police, reading every story and doing additional research behind each victim. This began in response to the lack of a comprehensive federal database about who is killed by police annually while unarmed.
-
-    The second part is an art and design project, initiated in an attempt to return to these numerous victims not just a number, but a name and a back story. This begins with the research blog which catalogs individual incidents, and ends with public performances in which post cards, bearing the names and stories of these victims that are addressed to the police stations which were involved in their deaths, are distributed by a masked stand-in for the lost."
+  <span class='aboutDescription'>
+    <div class='projectDescription'>{{data.aboutDescription}}</div>
   </span>
 </div>

@@ -219,6 +219,8 @@ var myApp = angular.module('shakApp',
 })
 .factory('State', function($http, $state, Server){
   var viewedProjectOnce = false;
+  var about;
+  var contact;
   var projects = {
     data : null,
     identity : [],
@@ -257,10 +259,41 @@ var myApp = angular.module('shakApp',
     return result;
   }
 
+
+  var getAbout = function(){
+    Server.get('about').then(function(aboutObj){
+      console.log('about obj ',aboutObj.data.about[0]);
+      about = aboutObj.data.about[0];
+    }, function(err){
+      console.log(err);
+    })
+  }
+
+  var getAboutObj = function(){
+    return about;
+  }
+
+  var getContact = function(){
+    Server.get('contact').then(function(contactObj){
+      console.log('contact obj ', contactObj);
+      contact = contactObj.data.contact[0].contactContent;
+    }, function(err){
+      console.log(err);
+    })
+  }
+
+  var getContactObj = function(){
+    return contact;
+  }
+
   return {
     getProjects : getProjects,
     getProjObj : getProjObj,
-    getViewedProjectOnce : getViewedProjectOnce
+    getViewedProjectOnce : getViewedProjectOnce,
+    getAbout : getAbout,
+    getAboutObj : getAboutObj,
+    getContact : getContact,
+    getContactObj : getContactObj
   }
 
 })
@@ -276,6 +309,9 @@ var myApp = angular.module('shakApp',
 }])
 .run(function(Auth, $state, $rootScope, State){
   State.getProjects();
+  State.getAbout();
+  State.getContact();
+
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     var protectedViews = Auth.getProtectedViews();
     console.log('protected state state transition ', toState.name === protectedViews[toState.name]);

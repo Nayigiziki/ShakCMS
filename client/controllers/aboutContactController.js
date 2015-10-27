@@ -1,16 +1,9 @@
 angular.module('shakApp.aboutContact', [])
-  .controller('aboutContactController', function($scope, Server, $state, toastr){
+  .controller('aboutContactController', function($scope, Server, $state, State){
+    var aboutData =  State.getAboutObj();
     var data = {};
-    data.contact = 'chyeah';
+    data.contact = State.getContactObj(); 
+    data.links = aboutData.links;
+    data.aboutDescription = aboutData.aboutContent;
     $scope.data = data;
-
-    $scope.saveToDb = function(){
-      Server.post('contact')
-        .then(function(response){
-
-        }, function(err){
-
-        });
-    }
-    // toastr.success('Welcome to shakeil.com');
   });

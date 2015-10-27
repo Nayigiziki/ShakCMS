@@ -18,8 +18,18 @@ var userSchema = new Schema({
   username: String,
   password: String,
 });
+var aboutSchema = new Schema({
+  aboutContent: String,
+  links : Array
+});
+var contactSchema = new Schema({
+  contactContent: String
+});
+
 module.exports = {
   projectModel : mongoose.model('Project', projectSchema),
-  userModel : mongoose.model('User', userSchema)
+  userModel : mongoose.model('User', userSchema),
+  aboutModel : mongoose.model('About', aboutSchema),
+  contactModel : mongoose.model('Contact', contactSchema)
 };
 
