@@ -262,8 +262,16 @@ var myApp = angular.module('shakApp',
 
   var getAbout = function(){
     Server.get('about').then(function(aboutObj){
-      console.log('about obj ',aboutObj.data.about[0]);
-      about = aboutObj.data.about[0];
+      console.log('about obj ',aboutObj.data);
+      if(aboutObj.data.about.length === 0 ){
+        about = {
+          aboutContent : 'Create new about page',
+          links : []
+        }
+      } else {
+        about = aboutObj.data.about[0];
+      }
+      
     }, function(err){
       console.log(err);
     })
@@ -275,8 +283,13 @@ var myApp = angular.module('shakApp',
 
   var getContact = function(){
     Server.get('contact').then(function(contactObj){
-      console.log('contact obj ', contactObj);
-      contact = contactObj.data.contact[0].contactContent;
+      console.log(contactObj.data);
+      if(contactObj.data.contact.length === 0){
+        contact = 'create contact page'
+      } else {
+        contact = contactObj.data.contact[0].contactContent;
+      }
+      
     }, function(err){
       console.log(err);
     })

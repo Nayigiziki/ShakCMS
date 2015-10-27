@@ -149,8 +149,6 @@ var setup = function(app) {
   })
 
 
-
-
   //default response
   app.get('*', function(req, res) {
     res.send('what?');
