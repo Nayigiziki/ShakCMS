@@ -1,5 +1,5 @@
 angular.module('shakApp.addProject', [])
-.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams, State){
+.controller('addProjectController', function($scope, Server, $state, Cloudinary, $timeout, $stateParams, State){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
 

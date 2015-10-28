@@ -1,5 +1,5 @@
 angular.module('shakApp.landingPage', [])
-  .controller('landingPageController', function($scope, Server, $state, toastr){
+  .controller('landingPageController', function($scope, Server, $state){
     var data = {};
 
     $scope.logout = function(){

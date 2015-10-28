@@ -1,5 +1,5 @@
 angular.module('shakApp.editProject', [])
-.controller('editProjectController', function($scope, Server, $state, Cloudinary, $timeout, toastr, $stateParams, State){
+.controller('editProjectController', function($scope, Server, $state, Cloudinary, $timeout, $stateParams, State){
     //"ProjectName-Discipline-Date"
     // cloudinary.cloudinary_js_config();
     console.log($stateParams.project);
@@ -51,7 +51,6 @@ angular.module('shakApp.editProject', [])
           }, 1500);
         }, function(err){
           console.log('err ', err);
-          toastr.warning('please try again', 'Unsuccessfully deleted the project');
         });
       };
 

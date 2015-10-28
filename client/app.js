@@ -13,10 +13,9 @@ var myApp = angular.module('shakApp',
   'shakApp.aboutContact',
   'shakApp.nonAdminDashboard',
   'shakApp.editAboutContact',
-  'ngFileUpload',
-  'toastr'
+  'ngFileUpload'
   ])
-.config(function($stateProvider, $urlRouterProvider, toastrConfig) {
+.config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/nonAdminDashboard');
 
@@ -114,19 +113,6 @@ var myApp = angular.module('shakApp',
     controller : 'editAboutContactController'
   })
 
-  angular.extend(toastrConfig, {
-    autoDismiss: false,
-    containerId: 'toast-container',
-    maxOpened: 0,    
-    newestOnTop: true,
-    positionClass: 'toast-top-right',
-    preventDuplicates: false,
-    preventOpenDuplicates: false,
-    target: 'body',
-    timeOut : 5000,
-    progressBar: true,
-    tapToDismiss: true,
-  });
 
 })
 .factory('Server', function($http){

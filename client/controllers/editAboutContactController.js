@@ -1,5 +1,5 @@
 angular.module('shakApp.editAboutContact', [])
-  .controller('editAboutContactController', function($scope, Server, $state, toastr, State){
+  .controller('editAboutContactController', function($scope, Server, $state, State){
     
     var aboutData =  State.getAboutObj();
     var data = {};
