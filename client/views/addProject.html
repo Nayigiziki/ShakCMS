@@ -9,9 +9,9 @@
 
 <div class='projectImgContainer'>
   <img shak-carousel='{{data.imageDataUrls}}' class='projectImg' src="{{data.projectImageUrl}}" >
+  <div>{{data.orderRank || ''}}</div>
   <input type="file"  my-upload ngf-select="uploadFiles($files, $invalidFiles)" multiple
   accept="image/*"></input>
-  {{data.orderRank || ''}}
 </div>
 
 

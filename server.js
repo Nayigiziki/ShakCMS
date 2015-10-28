@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 var dbUrl = 'mongodb://localhost/shak';
 var MongoStore = require('connect-mongo')(session);
 var sessionStore =  new MongoStore({ url: dbUrl});
-
+var config = require('./db/config');
 var initServer = function() {
   // attaches all the routes to the server
   routes.setup(app);
@@ -27,7 +27,7 @@ app.use(parser.urlencoded({extended: true}));
 app.use(parser.json());
 app.use(session({
   store: sessionStore,
-  secret: 'shak',
+  secret: config.secret,
   resave: false,
   saveUninitialized: false
 }))

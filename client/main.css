@@ -397,6 +397,7 @@ text {
   font-family: 'Superspitze Grotesk';
   font-size: 42px;
   white-space: pre-wrap;
+  margin-top : 75px;
 }
 
 .toast {
