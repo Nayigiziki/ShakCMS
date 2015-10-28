@@ -59,10 +59,9 @@ angular.module('shakApp.addProject', [])
       if($scope.data.imageDataUrls) {        
         var imageCount = $scope.data.imageDataUrls.length;
         var urls = [];
+        var i = 0;
         angular.forEach($scope.data.imageDataUrls, function(file) {
-          var timeStamp = Date.now();
-          timeStamp =  timeStamp.toString();
-          var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
+          var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + i++;
           Cloudinary.upload(file.file, uploadTitle)
           .then(function (response) {
             console.log(response);
