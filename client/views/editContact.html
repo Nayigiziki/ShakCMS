@@ -1,6 +1,6 @@
 <div ng-init='editContact = false;'>
-  <div class='contactText' ng-show='!editContact' ng-click='editContact = true'>{{data.contact}}</div>
-  <textarea class='contactTextArea' ng-show='editContact' ng-model='data.contact' ng-dblClick='editContact = false'></textarea>
+  <div align='middle' class='contactText' ng-show='!editContact' ng-click='editContact = true'>{{data.contact}}</div>
+  <textarea align='middle' class='contactTextArea' ng-show='editContact' ng-model='data.contact' ng-dblClick='editContact = false'></textarea>
 </div>
 
 <button class='inputTitleEditBtn' ng-click='createContact()'>create contact</button>
