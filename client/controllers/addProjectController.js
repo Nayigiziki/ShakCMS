@@ -114,6 +114,9 @@ angular.module('shakApp.addProject', [])
               if(imageDataUrls.length === imageCount){
                 scope.data.projectImageUrl = imageDataUrls[0].url;    
                 scope.data.imageDataUrls = imageDataUrls;
+                angular.forEach(imageDataUrls, function(dataUrl){
+                  dataUrl['orderRank'] = null;
+                });
                 console.log('img data urls arr ', scope.data.imageDataUrls);
                 scope.$apply();  
               }
@@ -136,7 +139,6 @@ angular.module('shakApp.addProject', [])
       elem.on('click', function(){
         console.log('clicked');
         var imgUrls = scope.data.imageDataUrls;
-        console.log(imgUrls);
         
         if(imgUrls.length > 1){  
 
@@ -147,7 +149,9 @@ angular.module('shakApp.addProject', [])
           } else {
             index++;
           }
-
+          imgUrls[index].orderRank = index;
+          scope.data['orderRank'] = index === 0 ? '0' : index;
+          console.log(imgUrls);
           scope.data.projectImageUrl = imgUrls[index].url;
           scope.$apply();
         }
