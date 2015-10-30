@@ -26,19 +26,36 @@ angular.module('shakApp.editProject', [])
 
       $scope.data = data;
 
-  
-      var image = new Image();
-      image.setAttribute('crossOrigin', 'anonymous');
+      (function createImgFiles (urls) {
+        var dataUrls = [];
+        var rank = 0;
+        var urlCount = urls.length;
 
-      image.onload = function () {
-        var canvas = document.createElement('canvas');
-        canvas.width = this.naturalWidth; 
-        canvas.height = this.naturalHeight; 
-        canvas.getContext('2d').drawImage(this, 0, 0);
-        $scope.data.file = canvas.toDataURL('image/png');
-      };
+        angular.forEach(urls, function(url) {
+          var image = new Image();
+          image.setAttribute('crossOrigin', 'anonymous');
 
-      image.src = project.projectImageUrl;
+          image.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.naturalWidth; 
+            canvas.height = this.naturalHeight; 
+            canvas.getContext('2d').drawImage(this, 0, 0);
+            dataUrls.push({
+              file: canvas.toDataURL('image/png'),
+              url : this.src,
+              rank : rank++
+            });
+            
+            if (dataUrls.length === urlCount) {
+              console.log('dataUrls ', dataUrls);
+              $scope.data.imageDataUrls = dataUrls;
+            }
+          }
+
+          image.src = url;  
+        });
+      })(project.projectImageUrls);
+
 
 
       $scope.deleteProject = function(){
@@ -54,7 +71,7 @@ angular.module('shakApp.editProject', [])
         });
       };
 
-      $scope.editProject = function(){
+      $scope.editProject = function(urls){
         console.log('editing project');
 
         var obj = {
@@ -68,7 +85,7 @@ angular.module('shakApp.editProject', [])
             projectYear : $scope.data.projectYear,
             projectDetails : $scope.data.projectDetails,
             projectUrl : $scope.data.projectUrl,
-            projectImageUrl : $scope.data.projectImageUrl
+            projectImageUrls : urls
           }
         }
 
@@ -95,44 +112,39 @@ angular.module('shakApp.editProject', [])
 
       $scope.uploadImgToCloudinary = function(id){
         console.log('click');
-        if(data.file) {
-          var timeStamp = new Date();
-          timeStamp =  timeStamp.toString();
-          var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + timeStamp;
-          Cloudinary.upload($scope.data.file, uploadTitle)
-          .then(function (response) {
-            console.log(response);
-            $scope.data.projectImageUrl = response.data.secure_url;
-            $scope.editProject();
-          }, function (response) {
-            console.log('Error status: ' + response.status);
-            $scope.createProjectStatus = 'Image upload Error, please try again';
+        if($scope.data.imageDataUrls) {
+          var imageCount = $scope.data.imageDataUrls.length;
+          var urls = [];
+          var i = 0;
 
-          }, function (evt) {
-            $scope.createProjectStatus = "loading";
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+          angular.forEach($scope.data.imageDataUrls, function(file) { 
+            var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + i++;
+            Cloudinary.upload(file.file, uploadTitle)
+            .then(function (response) {
+              $scope.data.projectImageUrl = response.data.secure_url;
+              urls.push(response.data.secure_url)
+              console.log('uploaded count ', urls.length);
+              if(imageCount === urls.length){
+                $scope.createProjectStatus = 'Edit project';
+                console.log('uploaded all images');
+                $scope.editProject(urls);
+              }
+            }, function (response) {
+              console.log('Error status: ' + response.status);
+              $scope.createProjectStatus = 'Image upload Error, please try again';
+
+            }, function (evt) {
+              $scope.createProjectStatus = "loading";
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
           });
         }
+        //toast something to user
+
       }
+
     }
 
 
-  })
-.directive('myUpload', [ 'Upload', function (Upload) {
-  return {
-    restrict: 'A',
-    link: function (scope, elem, attrs) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        scope.data.projectImageUrl = e.target.result;    
-        scope.$apply();
-      }
-
-      elem.on('change', function() {
-        reader.readAsDataURL(elem[0].files[0]);
-      });
-    }
-  };
-}]);
+  });

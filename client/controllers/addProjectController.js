@@ -139,6 +139,7 @@ angular.module('shakApp.addProject', [])
       elem.on('click', function(){
         console.log('clicked');
         var imgUrls = scope.data.imageDataUrls;
+        console.log(imgUrls);
         
         if(imgUrls.length > 1){  
 
@@ -149,9 +150,9 @@ angular.module('shakApp.addProject', [])
           } else {
             index++;
           }
+          
           imgUrls[index].orderRank = index;
           scope.data['orderRank'] = index === 0 ? '0' : index;
-          console.log(imgUrls);
           scope.data.projectImageUrl = imgUrls[index].url;
           scope.$apply();
         }
