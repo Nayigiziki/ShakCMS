@@ -13,7 +13,6 @@ angular.module('shakApp.addProject', [])
       projectUrl :'www.google.com',
       projectDiscipline : 'identity',
       projectImageUrl : 'http://img.ffffound.com/static-data/assets/6/fb5f4b73f74d14b59b583f2d0fff8e374e541024_m.jpg'
-
     };
 
     $scope.data = data;
@@ -53,31 +52,53 @@ angular.module('shakApp.addProject', [])
       console.log('err ', errFiles);
     }
 
+    function makeid() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for( var i=0; i < 5; i++ ){
+        text += possible.charAt(Math.floor(Math.random() * possible.length));        
+      }
+
+      return text;
+    }
+    
+    function sortImageDataUrls(){
+      var temp;
+      if($scope.data.firstImage && $scope.data.firstImage != 0){
+        temp = $scope.data.imageDataUrls.splice($scope.data.firstImage, 1);
+        $scope.data.imageDataUrls = temp.concat($scope.data.imageDataUrls);
+      }
+    } 
+
     $scope.uploadImgToCloudinary = function(){
       console.log('click');
       console.log('files ', data.files);
+      sortImageDataUrls();
       if($scope.data.imageDataUrls) {        
         var imageCount = $scope.data.imageDataUrls.length;
         var urls = [];
         var i = 0;
-        angular.forEach($scope.data.imageDataUrls, function(file) {
-          var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + i++;
+        var count = 0;
+
+        angular.forEach($scope.data.imageDataUrls, function(file, index) {
+          var uploadTitle = $scope.data.projectTitle + '-' + $scope.data.projectDiscipline + '-' + makeid();
           Cloudinary.upload(file.file, uploadTitle)
           .then(function (response) {
             console.log(response);
 
             $scope.data.projectImageUrl = response.data.secure_url;
-
-            urls.push(response.data.secure_url)
+            count++;
+            urls[index] = response.data.secure_url;
 
             $scope.createProjectStatus = 'Create project';
-            console.log('uploaded count ', urls.length);
-            if(imageCount === urls.length){
+            console.log('uploaded count ', urls);
+            if(imageCount === count){
               console.log('uploaded all images');
               $scope.createProject(urls);
             }
           }, function (response) {
-            console.log('Error status: ' + response);
+            console.log('Error status: ', response.toString());
             $scope.createProjectStatus = 'Image upload Error, please try again';
 
           }, function (evt) {
@@ -156,10 +177,23 @@ angular.module('shakApp.addProject', [])
           scope.data.projectImageUrl = imgUrls[index].url;
           scope.$apply();
         }
-
       })
-
     }
   }
-}]);
+}])
+.directive('pickFirstImage', function(){
+  return {
+    restrict: 'E',
+    templateUrl: '../views/pickFirstImage.html',
+    link: function(scope, elem, attrs){
+      elem.on('click', function(e){
+        e.preventDefault();
+        scope.data.firstImage = scope.data.orderRank;
+        Materialize.toast('This image will now be shown first', 3000);
+        scope.$apply();
+      })
+    }
+  }
+});
+
 

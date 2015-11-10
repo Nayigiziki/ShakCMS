@@ -8,8 +8,8 @@
 </div>
 
 <div class='projectImgContainer'>
+  <pick-first-image></pick-first-image>
   <img shak-carousel='{{data.imageDataUrls}}' class='projectImg' src="{{data.projectImageUrl}}" >
-  <div>{{data.orderRank || ''}}</div>
   <input type="file"  my-upload ngf-select="uploadFiles($files, $invalidFiles)" multiple
   accept="image/*"></input>
 </div>
@@ -52,33 +52,33 @@
                 <a ng-show='!editProjectUrl' ng-href='https://{{data.projectUrl}}'>{{data.projectUrl}}</a></span>
                 <input  ng-show='editProjectUrl' ng-model="data.projectUrl" ng-dblClick='editProjectUrl = false;'>
 
-              <span ng-init='editProjectYear = false;' ng-click='editProjectYear = !editProjectYear;'>Year:
-                <span ng-show='!editProjectYear'>{{data.projectYear}}</span></span>
-                <input  ng-show='editProjectYear' ng-model="data.projectYear" ng-dblClick='editProjectYear = false;'>
+                <span ng-init='editProjectYear = false;' ng-click='editProjectYear = !editProjectYear;'>Year:
+                  <span ng-show='!editProjectYear'>{{data.projectYear}}</span></span>
+                  <input  ng-show='editProjectYear' ng-model="data.projectYear" ng-dblClick='editProjectYear = false;'>
+                </div>
+
               </div>
 
-            </div>
 
-            
-            <div class='submitContainer'>
-              <button ng-init='createProjectStatus = "Create Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
+              <div class='submitContainer'>
+                <button ng-init='createProjectStatus = "Create Project"' class='inputTitleEditBtn' ng-click='uploadImgToCloudinary()'>{{createProjectStatus}}</button>
 
-            </div>
+              </div>
 
-            <div class='rectContainer'>
-              <svg class='svgLeft'>
-                <g>
-                  <rect class='rectLeft'/>
-                  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
-                </g>
-              </svg>
-              <svg class='svgLine'>
-                <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
-              </svg>
-              <svg class='svgRight'>
-                <g>
-                  <rect class='rectRight'/>
-                  <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>
-                </g>
-              </svg>
-            </div>
+              <div class='rectContainer'>
+                <svg class='svgLeft'>
+                  <g>
+                    <rect class='rectLeft'/>
+                    <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Previous</text>
+                  </g>
+                </svg>
+                <svg class='svgLine'>
+                  <line class='line' x1="0" y1="102" x2="100%" y2="102" style="stroke: black;"/>
+                </svg>
+                <svg class='svgRight'>
+                  <g>
+                    <rect class='rectRight'/>
+                    <text font-family="Superspitze Grotesk" fill="black" x='171' y='102' font-size='36px' text-anchor="middle" alignment-baseline="middle">Next</text>
+                  </g>
+                </svg>
+              </div>

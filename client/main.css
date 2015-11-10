@@ -387,6 +387,10 @@ text {
    
 }
 
+.orderRank {
+  font-size: 94px;
+}
+
 .contactTextArea{
   width: 100%;
   height: 500px;
