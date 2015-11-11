@@ -15,7 +15,7 @@ var config = require('./db/config');
 var initServer = function() {
   // attaches all the routes to the server
   routes.setup(app);
-  var port = process.env.PORT || 3001;
+  var port = process.env.PORT || 8080;
   var server = app.listen(port);
   console.log("Express server listening on %d in %s mode", port, app.settings.env)
 }
