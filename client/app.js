@@ -318,6 +318,7 @@ var myApp = angular.module('shakApp',
     if(toState.name === protectedViews[toState.name]){
       Auth.isAuth()
       .then(function(response){
+        
         if(response.data.status === 'not logged in') {
           event.preventDefault();
           console.log('not logged in');
