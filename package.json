@@ -35,7 +35,6 @@
     "morgan": "^1.6.1",
     "node-stringify": "0.0.18",
     "superagent": "^1.4.0",
-    "ui-router": "0.0.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
