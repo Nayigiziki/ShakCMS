@@ -116,8 +116,8 @@ var myApp = angular.module('shakApp',
 
 })
 .factory('Server', function($http){
-  var prodUrl = 'http://52.33.150.135/api/';
-  var baseUrl = 'http://127.0.0.1:8080/api/';
+  var prodUrl = 'http://www.shakeil.com/api/';
+  var baseUrl = prodUrl;
   var post = function(url, data){
     return $http.post(baseUrl + url, data)
     .then(function(response) {
@@ -157,8 +157,8 @@ var myApp = angular.module('shakApp',
     'dashboard' : 'dashboard',
     'editProject' : 'editProject'
   }
-  var prodUrl = 'http://52.33.150.135/api/isAuth';
-  var baseUrl = 'http://127.0.0.1:8080/api/isAuth';
+  var prodUrl = 'http://www.shakeil.com/api/isAuth';
+  var baseUrl = prodUrl;
   var isAuth = function(){
     return $http.get(baseUrl)
     .then(function(response) {
@@ -321,6 +321,7 @@ var myApp = angular.module('shakApp',
         
         if(response.data.status === 'not logged in') {
           event.preventDefault();
+console.log('response ',response);
           console.log('not logged in');
           $state.go('login');
         } 
