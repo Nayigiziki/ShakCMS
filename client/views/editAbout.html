@@ -1,23 +1,21 @@
 <div class='aboutDescriptionContainer'>
-  <span class='aboutTitles'>
-    
-    <span ng-repeat='(key, link) in data.links'><a ng-href="{{link.url}}">{{link.name}}</a><img src="../x.png" ng-click='deleteLink(key)'></span>
-    <input type='text' placeholder='Text' ng-model='data.text'>
-    <input type='text' placeholder='link' ng-model='data.link'>
-    <button class='inputTitleEditBtn' ng-click='createLink()'>create link</button>
-    <br>
-    <div>Web Design: Shakeil Greeley</div>
-    <div>Web Development: Joseph Nayigiziki</div>
-    <br>
-    <div>Works may not be used for any commercial purposes or any other purposes without permission. All images are protected under the United States and international Copyright laws. The images may not be reproduced, copied, transmitted or manipulated without the written permission of Shakeil Greeley.
-    </div>
-  </span>
-  <span class='aboutDescription' ng-init='editAboutDescription = false;'>
+  <div class='aboutDescription' ng-init='editAboutDescription = false;'>
     <div ng-show='!editAboutDescription' ng-click='editAboutDescription = !editAboutDescription' class='projectDescription'>{{data.aboutDescription}}</div>
     <div ng-show='editAboutDescription' >    
       <textarea ng-model="data.aboutDescription" class='inputAboutDescriptionEdit' ng-dblClick="editAboutDescription = false;"></textarea>
     </div>
-</span>
-
+  </div>
+  <div class='aboutTitles'>
+    <span ng-repeat='(key, link) in data.links'><a ng-href="{{link.url}}">{{link.name}}</a><img src="../x.png" ng-click='deleteLink(key)'></span>
+    <input type='text' placeholder='Text' ng-model='data.text'>
+    <input type='text' placeholder='link' ng-model='data.link'>
+    <button class='inputTitleEditBtn' ng-click='createLink()'>create link</button>
+  </div>
+  <div class='aboutCredits'>
+    <div>Web Design: Shakeil Greeley</div>
+    <div>Web Development: Joseph Nayigiziki</div>
+    <br>
+    <div>&#169; 2015 Shakeil Greeley. All rights reserved.</div>
+  </div>
 </div>
 <button class='inputTitleEditBtn' ng-click='saveAboutToDb()'>create about</button>
