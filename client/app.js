@@ -115,8 +115,7 @@ var myApp = angular.module('shakApp', [
 
     })
     .factory('Server', function($http) {
-        var prodUrl = 'http://www.shakeil.com/api/';
-        var baseUrl = prodUrl;
+        var baseUrl = '/api/';
         var post = function(url, data) {
             return $http.post(baseUrl + url, data)
                 .then(function(response) {
@@ -156,8 +155,8 @@ var myApp = angular.module('shakApp', [
             'dashboard': 'dashboard',
             'editProject': 'editProject'
         }
-        var prodUrl = 'http://www.shakeil.com/api/isAuth';
-        var baseUrl = prodUrl;
+
+        var baseUrl = '/api/';
         var isAuth = function() {
             return $http.get(baseUrl)
                 .then(function(response) {
@@ -317,7 +316,6 @@ var myApp = angular.module('shakApp', [
             if (toState.name === protectedViews[toState.name]) {
                 Auth.isAuth()
                     .then(function(response) {
-
                         if (response.data.status === 'not logged in') {
                             event.preventDefault();
                             $state.go('login');

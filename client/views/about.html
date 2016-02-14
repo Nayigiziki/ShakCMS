@@ -1,14 +1,14 @@
 <div class='aboutDescriptionContainer'>
-  <span class='aboutTitles'>
+  <div class='aboutDescription'>
+    <div class='projectDescription'>{{data.aboutDescription}}</div>
+  </div>
+  <div class='aboutTitles'>
     <span ng-repeat='(key, link) in data.links'><a ng-href="{{link.url}}">{{link.name}}</a></span>
-    <br>
+  </div>
+  <div class='aboutCredits'>
     <div>Web Design: Shakeil Greeley</div>
     <div>Web Development: Joseph Nayigiziki</div>
     <br>
-    <div>Works may not be used for any commercial purposes or any other purposes without permission. All images are protected under the United States and international Copyright laws. The images may not be reproduced, copied, transmitted or manipulated without the written permission of Shakeil Greeley.
-    </div>
-  </span>
-  <span class='aboutDescription'>
-    <div class='projectDescription'>{{data.aboutDescription}}</div>
-  </span>
+    <div>&#169; 2015 Shakeil Greeley. All rights reserved.</div>
+  </div>
 </div>
